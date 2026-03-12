@@ -1,7 +1,7 @@
-import { Context, Hono } from "hono";
+import { Request, Response, NextFunction } from "express";
 
-export type Bindings = Cloudflare.Env;
-
-export type App = Hono<{ Bindings: Bindings }>;
-
-export type AppContext = Context<{ Bindings: Bindings }>;
+export type ExpressHandler = (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => Promise<void>;

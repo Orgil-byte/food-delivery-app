@@ -1,16 +1,12 @@
-import { getDrizzleDb } from "../../db";
-import { foodsTable } from "../../db/foods";
-import { AppContext } from "../../types";
-import { eq } from "drizzle-orm";
+import { Request, Response } from "express";
+import prisma from "../../lib/prisma";
 
-export const deleteFood = async (c: AppContext) => {
-  const id = Number(c.req.param("id"));
-  const db = getDrizzleDb(c.env.my_hono_db);
-  const deleted = await db
-    .delete(foodsTable)
-    .where(eq(foodsTable.id, id))
-    .returning()
-    .get();
-  if (!deleted) return c.json({ error: "Food not found" }, 404);
-  return c.json({ deleted });
+export const deleteFood = async (req: Request, res: Response) => {
+  const id = Number(req.params["id"]);
+  const deleted = await prisma.food.delete({ where: { id } });
+  if (!deleted) {
+    res.status(404).json({ error: "Food not found" });
+    return;
+  }
+  res.json({ deleted });
 };

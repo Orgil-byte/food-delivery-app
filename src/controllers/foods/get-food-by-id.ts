@@ -1,16 +1,12 @@
-import { getDrizzleDb } from "../../db";
-import { foodsTable } from "../../db/foods";
-import { AppContext } from "../../types";
-import { eq } from "drizzle-orm";
+import { Request, Response } from "express";
+import prisma from "../../lib/prisma";
 
-export const getFoodById = async (c: AppContext) => {
-  const id = Number(c.req.param("id"));
-  const db = getDrizzleDb(c.env.my_hono_db);
-  const food = await db
-    .select()
-    .from(foodsTable)
-    .where(eq(foodsTable.id, id))
-    .get();
-  if (!food) return c.json({ error: "Food not found" }, 404);
-  return c.json({ food });
+export const getFoodById = async (req: Request, res: Response) => {
+  const id = Number(req.params["id"]);
+  const food = await prisma.food.findUnique({ where: { id } });
+  if (!food) {
+    res.status(404).json({ error: "Food not found" });
+    return;
+  }
+  res.json({ food });
 };

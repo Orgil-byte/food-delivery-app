@@ -1,14 +1,8 @@
-import { getDrizzleDb } from "../../db";
-import { foodsTable } from "../../db/foods";
-import { AppContext } from "../../types";
+import { Request, Response } from "express";
+import prisma from "../../lib/prisma";
 
-export const postFood = async (c: AppContext) => {
-  const { title } = await c.req.json();
-  const db = getDrizzleDb(c.env.my_hono_db);
-  const newFood = await db
-    .insert(foodsTable)
-    .values({ title })
-    .returning()
-    .get();
-  return c.json({ food: newFood }, 201);
+export const postFood = async (req: Request, res: Response) => {
+  const { title } = req.body;
+  const food = await prisma.food.create({ data: { title } });
+  res.status(201).json({ food });
 };
