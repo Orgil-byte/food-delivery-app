@@ -1,16 +1,17 @@
 import express from "express";
 import prisma from "./lib/prisma";
 
-const router = express.Router();
+const app = express();
+app.use(express.json());
 
 // GET all users
-router.get("/users", async (_req, res) => {
+app.get("/users", async (_req, res) => {
   const users = await prisma.user.findMany();
   res.json(users);
 });
 
 // POST create user
-router.post("/users", async (req, res) => {
+app.post("/users", async (req, res) => {
   const { email, name } = req.body;
   const user = await prisma.user.create({
     data: { email, name },
@@ -18,4 +19,6 @@ router.post("/users", async (req, res) => {
   res.status(201).json(user);
 });
 
-module.exports = router;
+app.listen(3000, () => {
+  console.log("Server running on http://localhost:3000");
+});
