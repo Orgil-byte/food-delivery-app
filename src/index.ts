@@ -1,10 +1,11 @@
 import express from "express";
 import foodsRouter from "./routes/foods.routes";
 import usersRouter from "./routes/users.routes";
+import foodCategoryRouter from "./routes/foodsCateg.routes";
 
 const app = express();
 app.use(express.json());
-
+app.use("/foodCateg", foodCategoryRouter);
 app.use("/foods", foodsRouter);
 app.use("/users", usersRouter);
 
