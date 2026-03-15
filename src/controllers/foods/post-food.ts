@@ -2,7 +2,9 @@ import { Request, Response } from "express";
 import prisma from "../../lib/prisma";
 
 export const postFood = async (req: Request, res: Response) => {
-  const { title } = req.body;
-  const food = await prisma.food.create({ data: { title } });
+  const { foodName, price, image, ingredients, foodCategoryId } = req.body;
+  const food = await prisma.food.create({
+    data: { foodName, price, image, ingredients, foodCategoryId },
+  });
   res.status(201).json({ food });
 };
