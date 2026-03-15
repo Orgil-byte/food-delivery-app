@@ -1,12 +1,11 @@
 import { Request, Response } from "express";
 import prisma from "../../lib/prisma";
 
-export const putCategory = async (req: Request, res: Response) => {
+export const getCategoryById = async (req: Request, res: Response) => {
   const id = Number(req.params["id"]);
-  const { categoryName } = req.body;
-  const category = await prisma.foodCategory.update({
+  const category = await prisma.foodCategory.findUnique({
     where: { id },
-    data: { categoryName },
+    include: { foods: true },
   });
   if (!category) {
     res.status(404).json({ error: "Category not found" });

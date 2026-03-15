@@ -12,6 +12,7 @@ model User {
   email     String   @unique
   name      String?
   createdAt DateTime @default(now())
+  foodOrders  FoodOrder[]
 }
 
 model Food {
@@ -21,6 +22,7 @@ model Food {
   image String
   ingredients String
   category FoodCategory @relation(fields: [foodCategoryId] , references: [id])
+  foodOrderItems FoodOrderItem[]
   foodCategoryId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -32,4 +34,30 @@ categoryName String
 foods Food[]
 createdAt DateTime @default(now())
 updatedAt DateTime @updatedAt
+}
+
+model FoodOrder {
+  id             Int             @id @default(autoincrement())
+  totalPrice     Float
+  status         FoodOrderStatus @default(PENDING)
+  userId         Int
+  user           User            @relation(fields: [userId], references: [id])
+  foodOrderItems FoodOrderItem[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+}
+
+model FoodOrderItem {
+  id          Int       @id @default(autoincrement())
+  quantity    Int
+  foodId      Int
+  food        Food      @relation(fields: [foodId], references: [id])
+  foodOrderId Int
+  foodOrder   FoodOrder @relation(fields: [foodOrderId], references: [id])
+}
+
+enum FoodOrderStatus {
+  PENDING
+  CANCELED
+  DELIVERED
 }
