@@ -3,11 +3,6 @@ import prisma from "../../lib/prisma";
 
 export const postOrder = async (req: Request, res: Response) => {
   const { userId, foodOrderItems } = req.body;
-  const totalPrice = foodOrderItems.reduce(
-    (sum: number, item: { price: number; quantity: number }) =>
-      sum + item.price * item.quantity,
-    0,
-  );
 
   const order = await prisma.foodOrder.create({
     data: {
