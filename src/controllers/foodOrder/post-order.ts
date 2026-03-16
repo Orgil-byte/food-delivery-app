@@ -24,9 +24,11 @@ const totalFoodPrice = async (foodId: number[], foodQuantity: number[]) => {
     },
   });
 
-  const totalPriceMap = foods.map((item) => item.price * foodQuantity);
+  const totalPriceMap = foods.map(
+    (item, index) => item.price * foodQuantity[index]!,
+  );
 
-  const totalPrice = totalPriceMap.reduce((a, b) => a + b.price, 0);
+  const totalPrice = totalPriceMap.reduce((a, b) => a + b, 0);
 
   return totalPrice;
 };
