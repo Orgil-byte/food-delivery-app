@@ -4,7 +4,6 @@ import prisma from "../../lib/prisma";
 type OrderItem = {
   foodId: number;
   quantity: number;
-  price: number;
 };
 
 type BodyType = {
@@ -12,26 +11,28 @@ type BodyType = {
   foodOrderItems: OrderItem[];
 };
 
-const totalFoodPrice = async (foodId: number[]) => {
+const totalFoodPrice = async (items: OrderItem[]) => {
   const foods = await prisma.food.findMany({
     where: {
-      id: {
-        in: foodId,
-      },
+      id: { in: items.map((item) => item.foodId) },
     },
     select: {
+      id: true,
       price: true,
     },
   });
 
-  const totalPrice = foods.reduce((a, b) => a + b.price, 0);
+  const priceMap = new Map(foods.map((f) => [f.id, f.price]));
 
-  return totalPrice;
+  return items.reduce((acc, item) => {
+    const price = priceMap.get(item.foodId) ?? 0;
+    return acc + price * item.quantity;
+  }, 0);
 };
 
 export const postOrder = async (req: Request, res: Response) => {
   const { userId, foodOrderItems }: BodyType = req.body;
-  const totalPrice = await totalFoodPrice();
+  const totalPrice = await totalFoodPrice(foodOrderItems);
 
   const foodMap = foodOrderItems.map((item) => ({
     foodId: item.foodId,
