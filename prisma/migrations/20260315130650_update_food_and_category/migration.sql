@@ -12,7 +12,6 @@
 */
 -- AlterTable
 ALTER TABLE "Food" DROP COLUMN "title",
-ADD COLUMN     "foodCategoryId" INTEGER NOT NULL,
 ADD COLUMN     "foodName" TEXT NOT NULL,
 ADD COLUMN     "image" TEXT NOT NULL,
 ADD COLUMN     "ingredients" TEXT NOT NULL,
