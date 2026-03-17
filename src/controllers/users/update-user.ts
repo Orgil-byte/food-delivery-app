@@ -10,7 +10,6 @@ export const updateUsers = async (req: Request, res: Response) => {
     phoneNumber,
     address,
     role,
-    foodOrderItemId,
     isVerified,
     // ttl,
   } = req.body;
@@ -24,7 +23,6 @@ export const updateUsers = async (req: Request, res: Response) => {
       phoneNumber,
       address,
       role,
-      foodOrderItemId,
       isVerified,
       // ttl,
     },
