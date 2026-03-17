@@ -4,7 +4,6 @@ import prisma from "../../lib/prisma";
 type OrderItem = {
   foodId: number;
   quantity: number;
-  price: number;
 };
 
 type BodyType = {
@@ -24,9 +23,7 @@ const totalFoodPrice = async (foodId: number[], foodQuantity: number[]) => {
     },
   });
 
-  const totalPriceMap = foods.map(
-    (item, index) => item.price * foodQuantity[index]!,
-  );
+  const totalPriceMap = foods.map((item) => item.price * foodQuantity.length);
 
   const totalPrice = totalPriceMap.reduce((a, b) => a + b, 0);
 

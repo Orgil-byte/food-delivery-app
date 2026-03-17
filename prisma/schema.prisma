@@ -15,7 +15,11 @@ model User {
   phoneNumber Int
   address String
   role String
+  orderedFoods String
+  ttl DateTime
+  isVerified Boolean
   createdAt DateTime @default(now())
+  updatedAt DateTime
   foodOrders  FoodOrder[]
 }
 
