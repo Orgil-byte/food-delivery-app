@@ -8,20 +8,17 @@ datasource db {
 }
 
 model User {
-  id              Int           @id @default(autoincrement())
-  email           String        @unique
-  name            String?
-  password        String
-  phoneNumber     Int
-  address         String
-  role            UserRole      @default(USER)
-  orderedFoods    FoodOrderItem @relation(fields: [foodOrderItemId], references: [id])
-  foodOrderItemId Int
-  // ttl             DateTime
-  isVerified      Boolean
-  createdAt       DateTime      @default(now())
-  updatedAt       DateTime      @updatedAt
-  foodOrders      FoodOrder[]
+  id          Int         @id @default(autoincrement())
+  email       String      @unique
+  name        String?
+  password    String
+  phoneNumber Int
+  address     String
+  role        UserRole    @default(USER)
+  isVerified  Boolean
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  foodOrders  FoodOrder[]
 }
 
 model Food {
@@ -63,7 +60,6 @@ model FoodOrderItem {
   food        Food      @relation(fields: [foodId], references: [id])
   foodOrderId Int
   foodOrder   FoodOrder @relation(fields: [foodOrderId], references: [id])
-  users       User[]
 }
 
 enum FoodOrderStatus {
