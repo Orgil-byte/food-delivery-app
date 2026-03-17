@@ -30,7 +30,7 @@ const totalFoodPrice = async (foodId: number[], foodQuantity: number[]) => {
   return totalPrice;
 };
 
-export const postOrder = async (req: Request, res: Response) => {
+export const addOrder = async (req: Request, res: Response) => {
   const { userId, foodOrderItems }: BodyType = req.body;
   const totalPrice = await totalFoodPrice(
     foodOrderItems.map((item) => item.foodId),

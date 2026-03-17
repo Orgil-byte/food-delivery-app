@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import prisma from "../../lib/prisma";
 
-export const putUsers = async (req: Request, res: Response) => {
+export const updateUsers = async (req: Request, res: Response) => {
   const id = Number(req.params["id"]);
   const { name, email } = req.body;
   const users = await prisma.user.update({

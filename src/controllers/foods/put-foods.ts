@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import prisma from "../../lib/prisma";
 
-export const putFood = async (req: Request, res: Response) => {
+export const updateFood = async (req: Request, res: Response) => {
   const id = Number(req.params["id"]);
   const { foodName, price, image, ingredients, foodCategoryId } = req.body;
   const food = await prisma.food.update({

@@ -6,7 +6,7 @@ interface UpdateOrderBody {
   status: FoodOrderStatus;
 }
 
-export const putOrder = async (req: Request, res: Response) => {
+export const updateOrder = async (req: Request, res: Response) => {
   const id = Number(req.params["id"]);
   const { status }: UpdateOrderBody = req.body;
 
