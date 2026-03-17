@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { getCategory } from "../controllers/foodsCategory/get-category-foods";
 import { getCategoryById } from "../controllers/foodsCategory/get-category-by-id";
-import { addCategory } from "../controllers/foodsCategory/post-category-foods";
-import { updateCategory } from "../controllers/foodsCategory/put-category-foods";
+import { addCategory } from "../controllers/foodsCategory/add-category-foods";
+import { updateCategory } from "../controllers/foodsCategory/update-category-foods";
 import { deleteCategory } from "../controllers/foodsCategory/delete-category-foods";
 
 const router = Router();
