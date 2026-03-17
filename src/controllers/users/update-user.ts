@@ -10,10 +10,11 @@ export const updateUsers = async (req: Request, res: Response) => {
     phoneNumber,
     address,
     role,
-    orderedFoods,
+    foodOrderItemId,
     isVerified,
     // ttl,
   } = req.body;
+
   const users = await prisma.user.update({
     where: { id },
     data: {
@@ -23,7 +24,7 @@ export const updateUsers = async (req: Request, res: Response) => {
       phoneNumber,
       address,
       role,
-      orderedFoods,
+      foodOrderItemId,
       isVerified,
       // ttl,
     },

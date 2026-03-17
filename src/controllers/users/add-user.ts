@@ -9,10 +9,10 @@ export const addUsers = async (req: Request, res: Response) => {
     phoneNumber,
     address,
     role,
-    orderedFoods,
+    foodOrderItemId,
     isVerified,
-    // ttl,
   } = req.body;
+
   const users = await prisma.user.create({
     data: {
       name,
@@ -21,9 +21,8 @@ export const addUsers = async (req: Request, res: Response) => {
       phoneNumber,
       address,
       role,
-      orderedFoods,
+      foodOrderItemId,
       isVerified,
-      // ttl,
     },
   });
   res.status(201).json({ users });
