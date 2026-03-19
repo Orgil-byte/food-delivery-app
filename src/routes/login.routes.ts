@@ -3,6 +3,6 @@ import { authUsers } from "../controllers/users/authentication/auth";
 
 const router = Router();
 
-router.get("/", authUsers);
+router.post("/login", authUsers);
 
 export default router;
