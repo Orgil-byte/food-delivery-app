@@ -1,0 +1,34 @@
+import { Request, Response } from "express";
+import prisma from "../../../lib/prisma";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
+export const authUsers = async (req: Request, res: Response) => {
+  const { email, password } = req.body;
+  const user = await prisma.user.findUnique({
+    where: { email },
+  });
+
+  if (!user) {
+    return res.status(401).json("Email does not exist");
+  }
+
+  const compare = await bcrypt.compare(password, user.password);
+
+  if (!compare) {
+    return res.status(401).json("Invalid credentials");
+  }
+
+  const accessToken = jwt.sign(
+    {
+      data: {
+        email: user.email,
+        role: user.role,
+        id: user.id,
+      },
+    },
+    process.env.JWT_SECRET!,
+    { expiresIn: "1h" },
+  );
+  res.status(200).json({ Valid: accessToken });
+};
