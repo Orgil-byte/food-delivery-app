@@ -4,16 +4,8 @@ import bcrypt from "bcrypt";
 
 export const addUsers = async (req: Request, res: Response) => {
   try {
-    const {
-      name,
-      email,
-      password,
-      phoneNumber,
-      address,
-      role,
-      isVerified,
-      desc,
-    } = req.body;
+    const { name, email, password, phoneNumber, address, role, isVerified } =
+      req.body;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -26,7 +18,6 @@ export const addUsers = async (req: Request, res: Response) => {
         address,
         role,
         isVerified,
-        desc,
       },
     });
     res.status(201).json({ users });

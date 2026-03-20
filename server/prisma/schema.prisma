@@ -12,7 +12,6 @@ model User {
   email       String      @unique
   name        String?
   password    String
-  desc        String
   phoneNumber Int
   address     String
   role        UserRole    @default(USER)
@@ -28,6 +27,7 @@ model Food {
   price          Float
   image          String
   ingredients    String
+  desc           String
   category       FoodCategory    @relation(fields: [foodCategoryId], references: [id])
   foodCategoryId Int
   createdAt      DateTime        @default(now())

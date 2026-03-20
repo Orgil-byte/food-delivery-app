@@ -4,16 +4,8 @@ import prisma from "../../lib/prisma";
 export const updateUsers = async (req: Request, res: Response) => {
   try {
     const id = Number(req.params["id"]);
-    const {
-      name,
-      email,
-      password,
-      phoneNumber,
-      address,
-      role,
-      isVerified,
-      desc,
-    } = req.body;
+    const { name, email, password, phoneNumber, address, role, isVerified } =
+      req.body;
 
     const users = await prisma.user.update({
       where: { id },
@@ -25,7 +17,6 @@ export const updateUsers = async (req: Request, res: Response) => {
         address,
         role,
         isVerified,
-        desc,
       },
     });
     if (!users) {
