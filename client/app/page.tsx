@@ -1,8 +1,9 @@
-const Main = async () => {
-  const categoryData = await fetch("http://localhost:3001/foodcateg");
-  const theCategory = await categoryData.json();
-  console.log(theCategory);
-  return <div>hello</div>;
+import { categoryApi } from "@/lib/api/category-api";
+
+const Category = async () => {
+  const data = await categoryApi();
+
+  console.log(data);
 };
 
-export default Main;
+export default Category;
