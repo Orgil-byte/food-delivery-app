@@ -1,9 +1,10 @@
-import { categoryApi } from "@/lib/api/category-api";
-
-const Category = async () => {
-  const data = await categoryApi();
-
-  console.log(data);
+import { TheCategory } from "./_components/theCategory";
+const Main = async () => {
+  return (
+    <div>
+      <TheCategory />
+    </div>
+  );
 };
 
-export default Category;
+export default Main;
