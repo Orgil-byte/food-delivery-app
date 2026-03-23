@@ -7,6 +7,13 @@ import { useEffect, useState } from "react";
 
 export const DishesCategory = () => {
   const [categories, setCategories] = useState<CategoryDataType[]>([]);
+  const [isActive, setIsActive] = useState<number | null>(null);
+
+  const buttonBorderColor = (buttonId: number) => {
+    return isActive === buttonId
+      ? "border border-red-500"
+      : "border border-neutral-200";
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,7 +33,8 @@ export const DishesCategory = () => {
         {categories.map((category: CategoryDataType) => {
           return (
             <div
-              className="font-medium text-[14px] flex items-center gap-2 rounded-full py-2 px-4 border border-neutral-200"
+              onClick={() => setIsActive(category.id)}
+              className={`cursor-pointer font-medium text-[14px] flex items-center gap-2 rounded-full py-2 px-4 ${buttonBorderColor(category.id)}`}
               key={category.id}
             >
               {category.categoryName}

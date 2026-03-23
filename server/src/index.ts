@@ -4,8 +4,16 @@ import usersRouter from "./routes/users.routes";
 import foodCategoryRouter from "./routes/foodsCateg.routes";
 import foodOrderRouter from "./routes/food-order.routes";
 import loginRouter from "./routes/login.routes";
+import cors from "cors";
 
 const app = express();
+
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+  }),
+);
+
 app.use(express.json());
 app.use("/foodCateg", foodCategoryRouter);
 app.use("/foods", foodsRouter);
