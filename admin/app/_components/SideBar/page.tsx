@@ -1,9 +1,20 @@
+"use client";
+import { useState } from "react";
 import { Sidebar } from "@/components/ui/sidebar";
 import { LayoutDashboard, TruckIcon } from "lucide-react";
 
 export const SideBar = () => {
+  const [isActive, setIsActive] = useState(false);
+
+  const btnColorChange = (buttonType) => {
+    const base = "py-1 px-3 h-8  text-[12px] rounded-sm cursor-pointer";
+    const normal = "bg-[#F3F4F6] text-[#363636]";
+    const active = "bg-[#3c82f6] text-white";
+    return `${base} ${filtered === buttonType ? active : normal}`;
+  };
+
   return (
-    <Sidebar className="bg-white py-9 px-5 w-51.25 flex flex-col gap-10">
+    <Sidebar className="bg-white py-9 px-5 w-51.25 flex flex-col gap-10 border-none">
       <div className="flex gap-2 bg-white items-center">
         <img
           className="w-10 h-10 object-cover"
