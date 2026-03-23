@@ -1,3 +1,3 @@
 export const DishesCategory = () => {
-  return <div className="bg-black w-full h-full"></div>;
+  return <div className="bg-black w-full h-full">gydegydewg</div>;
 };

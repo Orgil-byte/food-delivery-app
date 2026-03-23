@@ -39,7 +39,7 @@ export default function RootLayout({
       <body
         className={`min-h-full flex flex-col ${inter.variable} font-sans antialiased`}
       >
-        <SidebarProvider className="bg-neutral-100">
+        <SidebarProvider className="bg-neutral-100 w-full">
           <SideBar />
           <main>{children}</main>
         </SidebarProvider>
