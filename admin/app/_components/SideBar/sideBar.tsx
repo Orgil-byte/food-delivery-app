@@ -19,7 +19,10 @@ export const SideBar = () => {
   };
 
   return (
-    <Sidebar className="bg-white py-9 px-5 w-51.25 flex flex-col gap-10 border-none">
+    <Sidebar
+      collapsible="none"
+      className="bg-white h-screen py-9 px-5 w-51.25 flex flex-col gap-10 border-none"
+    >
       <div className="flex gap-2 bg-white items-center">
         <img
           className="w-10 h-10 object-cover"

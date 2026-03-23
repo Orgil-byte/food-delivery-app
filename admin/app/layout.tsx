@@ -41,7 +41,7 @@ export default function RootLayout({
       >
         <SidebarProvider className="bg-neutral-100 w-full">
           <SideBar />
-          <main>{children}</main>
+          <main className="w-full">{children}</main>
         </SidebarProvider>
       </body>
     </html>
