@@ -37,9 +37,9 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body
-        className={`min-h-full flex flex-col ${inter.variable} font-sans antialiased`}
+        className={`flex h-dvh flex-col ${inter.variable} font-sans antialiased`}
       >
-        <SidebarProvider className="bg-neutral-100 w-full">
+        <SidebarProvider className="w-full">
           <SideBar />
           <main className="w-full">{children}</main>
         </SidebarProvider>

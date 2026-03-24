@@ -1,17 +1,11 @@
-export type CategoryDataType = {
+export interface CategoriesType {
+  categories: FoodCateg[];
+}
+
+export interface FoodCateg {
   id: number;
   categoryName: string;
-  createdAt: Date;
-  updatedAt: Date;
-  foods: [];
-};
-
-export type FoodsDataType = {
-  id: number;
-  foodName: string;
-  price: number;
-  image: string;
-  ingredients: string;
-  foodCategoryId: number;
-  desc: string;
-};
+  createdAt: string;
+  updatedAt: string;
+  foods: any[];
+}

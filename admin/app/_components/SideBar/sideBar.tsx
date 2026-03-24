@@ -2,13 +2,14 @@
 import { useState } from "react";
 import { Sidebar } from "@/components/ui/sidebar";
 import { LayoutDashboard, TruckIcon } from "lucide-react";
+import Link from "next/link";
 
 export const SideBar = () => {
   const [isActive, setIsActive] = useState("foodMenu");
 
   const btnColorChange = (buttonType: string) => {
     const base =
-      "h-10 w-41.25 px-6 flex items-center gap-2.5 transition-all ease-out duration-300";
+      "h-10 w-41.25 px-6 flex items-center gap-2.5 transition-all ease-out duration-300 cursor-pointer";
     const normal = "text-black bg-white";
     const active = "text-white bg-[#18181B] rounded-full";
     return `${base} ${isActive === buttonType ? active : normal}`;
@@ -21,7 +22,7 @@ export const SideBar = () => {
   return (
     <Sidebar
       collapsible="none"
-      className="bg-white h-screen py-9 px-5 w-51.25 flex flex-col gap-10 border-none"
+      className="min-h-dvh bg-white py-9 px-5 w-51.25 flex flex-col gap-10 border-none"
     >
       <div className="flex gap-2 bg-white items-center">
         <img
@@ -36,23 +37,27 @@ export const SideBar = () => {
       </div>
 
       <div className="w-41.25 h-26 flex flex-col gap-6 bg-white mt-10">
-        <button
-          onClick={() => setIsActive("foodMenu")}
-          className={btnColorChange("foodMenu")}
-        >
-          <LayoutDashboard
-            strokeWidth={1}
-            className={textIconColor("foodMenu")}
-          />
-          <p className={"foodMenu"}>Food menu</p>
-        </button>
-        <button
-          onClick={() => setIsActive("orders")}
-          className={btnColorChange("orders")}
-        >
-          <TruckIcon strokeWidth={1} className={textIconColor("orders")} />
-          <p className={textIconColor("orders")}>Orders</p>
-        </button>
+        <Link href={"/Dishes"}>
+          <button
+            onClick={() => setIsActive("foodMenu")}
+            className={btnColorChange("foodMenu")}
+          >
+            <LayoutDashboard
+              strokeWidth={1}
+              className={textIconColor("foodMenu")}
+            />
+            <p className={"foodMenu"}>Food menu</p>
+          </button>
+        </Link>
+        <Link href={"/"}>
+          <button
+            onClick={() => setIsActive("orders")}
+            className={btnColorChange("orders")}
+          >
+            <TruckIcon strokeWidth={1} className={textIconColor("orders")} />
+            <p className={textIconColor("orders")}>Orders</p>
+          </button>
+        </Link>
       </div>
     </Sidebar>
   );
