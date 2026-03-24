@@ -20,6 +20,13 @@ export const DishesCategory = ({
       <h1 className="font-semibold text-[20px]">Dishes category</h1>
       <div className="flex flex-wrap gap-3">
         {categories.map((category: FoodCateg) => {
+          const count =
+            category.id === 1
+              ? categories
+                  .slice(1)
+                  .reduce((sum, category) => sum + category.foods.length, 0)
+              : category.foods.length;
+
           const borderColor =
             isActive === category.id
               ? "border border-red-500"
@@ -32,9 +39,7 @@ export const DishesCategory = ({
             >
               {category.categoryName}
               <p className="rounded-full py-0.5 px-2.5 bg-[#18181b] text-white">
-                {category.id !== 1
-                  ? category.foods.length
-                  : category.foods.reduce((a, b) => a + b, 0)}
+                {count}
               </p>
             </div>
           );
