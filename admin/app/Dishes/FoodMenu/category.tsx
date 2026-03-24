@@ -32,7 +32,9 @@ export const DishesCategory = ({
             >
               {category.categoryName}
               <p className="rounded-full py-0.5 px-2.5 bg-[#18181b] text-white">
-                {category.foods.length}
+                {category.id !== 1
+                  ? category.foods.length
+                  : category.foods.reduce((a, b) => a + b, 0)}
               </p>
             </div>
           );

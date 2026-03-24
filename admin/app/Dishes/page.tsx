@@ -19,7 +19,7 @@ const Dishes = () => {
       );
 
       setCategories(categoryArray);
-      setCategoriesName(categoryArray);
+      setCategoriesName(categoryArray.slice(1));
     };
 
     fetchData();
@@ -30,13 +30,17 @@ const Dishes = () => {
       (category) => category.id === categoryId,
     );
 
-    setCategoriesName(selectedCategory);
+    if (categoryId === 1) {
+      setCategoriesName(categories.slice(1));
+    } else {
+      setCategoriesName(selectedCategory);
+    }
 
     setIsActive(categoryId);
   };
 
   return (
-    <div className="w-full h-fit bg-neutral-100 pl-6 pt-6 pr-10 flex flex-col gap-6">
+    <div className="w-full min-h-fit h-screen bg-neutral-100 pl-6 pt-6 pr-10 flex flex-col gap-6">
       <DishesCategory
         categories={categories}
         selectCategory={selectCategory}

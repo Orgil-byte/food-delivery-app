@@ -7,7 +7,7 @@ import { Plus } from "lucide-react";
 export const FoodLists = ({ categories }: CategoriesType) => {
   return (
     <div className="flex flex-col gap-6 pb-6">
-      {categories.slice(1).map((category: FoodCateg) => {
+      {categories.map((category: FoodCateg) => {
         return (
           <div
             key={category.id}
@@ -18,7 +18,7 @@ export const FoodLists = ({ categories }: CategoriesType) => {
               <button className="w-9 h-9 rounded-full bg-red-500 flex justify-center items-center">
                 <Plus
                   strokeWidth={2}
-                  className="text-white h-4 w-4 opacity-100"
+                  className="text-white h-4 w-4 opacity-100 cursor-pointer"
                 />
               </button>
               <p className="text-center font-medium text-[14px]">
