@@ -7,23 +7,27 @@ import { useState } from "react";
 type DishesCategoryProps = {
   selectCategory: (categoryId: number) => void;
   categories: FoodCateg[];
-  buttonBorderColor: string;
+  isActive: number;
 };
 
 export const DishesCategory = ({
   categories,
   selectCategory,
-  buttonBorderColor,
+  isActive,
 }: DishesCategoryProps) => {
   return (
     <div className="w-full p-6 bg-white rounded-xl flex flex-col gap-4">
       <h1 className="font-semibold text-[20px]">Dishes category</h1>
       <div className="flex flex-wrap gap-3">
         {categories.map((category: FoodCateg) => {
+          const borderColor =
+            isActive === category.id
+              ? "border border-red-500"
+              : "border border-neutral-200";
           return (
             <div
               onClick={() => selectCategory(category.id)}
-              className={`cursor-pointer font-medium text-[14px] flex items-center gap-3 rounded-full py-2 px-4 tracking-wider ${buttonBorderColor}`}
+              className={`cursor-pointer font-medium text-[14px] flex items-center gap-3 rounded-full py-2 px-4 tracking-wider ${borderColor}`}
               key={category.id}
             >
               {category.categoryName}

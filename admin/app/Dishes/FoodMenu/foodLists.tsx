@@ -7,7 +7,7 @@ import { Plus } from "lucide-react";
 export const FoodLists = ({ categories }: CategoriesType) => {
   return (
     <div className="flex flex-col gap-6 pb-6">
-      {categories.map((category: FoodCateg) => {
+      {categories.slice(1).map((category: FoodCateg) => {
         return (
           <div
             key={category.id}

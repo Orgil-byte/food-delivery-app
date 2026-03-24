@@ -10,7 +10,6 @@ const Dishes = () => {
   const [categories, setCategories] = useState<FoodCateg[]>([]);
   const [categoriesName, setCategoriesName] = useState<FoodCateg[]>([]);
   const [isActive, setIsActive] = useState(1);
-  const [buttonBorderColor, setButtonBorderColor] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -34,12 +33,6 @@ const Dishes = () => {
     setCategoriesName(selectedCategory);
 
     setIsActive(categoryId);
-
-    const buttonBorderColor =
-      isActive === categoryId
-        ? "border border-red-500"
-        : "border border-neutral-200";
-    setButtonBorderColor(buttonBorderColor);
   };
 
   return (
@@ -47,7 +40,7 @@ const Dishes = () => {
       <DishesCategory
         categories={categories}
         selectCategory={selectCategory}
-        buttonBorderColor={buttonBorderColor}
+        isActive={isActive}
       />
       <FoodLists categories={categoriesName} />
     </div>
