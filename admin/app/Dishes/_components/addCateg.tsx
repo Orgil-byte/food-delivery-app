@@ -53,7 +53,7 @@ export const AddCateg = () => {
       </DialogTrigger>
       <DialogContent
         aria-describedby={undefined}
-        className="w-115 p-6 bg-white rounded-2xl shadow-lg border-none gap-6 [&>button]:hidden"
+        className="w-115 h-68 p-6 bg-white rounded-2xl shadow-lg border-none gap-6 [&>button]:hidden"
       >
         <DialogHeader className="flex flex-row items-center justify-between p-0 space-y-0">
           <DialogTitle className="text-lg font-semibold text-gray-900">
@@ -67,7 +67,7 @@ export const AddCateg = () => {
           </button>
         </DialogHeader>
         <div className="flex flex-col gap-2">
-          <label className="text-sm font-medium text-gray-700">
+          <label className="text-sm font-medium text-gray-900">
             Category name
           </label>
           <input
@@ -81,7 +81,7 @@ export const AddCateg = () => {
         <div className="flex justify-end">
           <button
             onClick={addCategory}
-            className="px-5 cursor-pointer py-2.5 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
+            className="px-5 cursor-pointer bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
           >
             {loading ? (
               <LoaderCircle className="animate-spin" />

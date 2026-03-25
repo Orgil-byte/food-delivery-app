@@ -9,3 +9,20 @@ export interface FoodCateg {
   updatedAt: string;
   foods: any[];
 }
+
+export interface FoodArray {
+  foods: Foods[];
+}
+
+export interface Foods {
+  id: number;
+  foodName: string;
+  price: number;
+  image: string;
+  ingredients: string;
+  desc: string;
+  foodCategoryId: number;
+  createdAt: string;
+  updatedAt: string;
+  category: FoodCateg;
+}
