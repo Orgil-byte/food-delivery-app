@@ -3,8 +3,8 @@
 import { FoodCateg } from "@/lib/app-api-data-types";
 import { dishesCategoryApi } from "@/lib/api/dishes-category";
 import { useState, useEffect } from "react";
-import { DishesCategory } from "./FoodMenu/category";
-import { FoodLists } from "./FoodMenu/foodLists";
+import { DishesCategory } from "./_components/category";
+import { FoodLists } from "./_components/foodLists";
 
 const Dishes = () => {
   const [categories, setCategories] = useState<FoodCateg[]>([]);

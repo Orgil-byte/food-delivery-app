@@ -1,8 +1,7 @@
 "use client";
 
-import { CategoriesType, FoodCateg } from "@/lib/app-api-data-types";
-import { Plus } from "lucide-react";
-import { useState } from "react";
+import { FoodCateg } from "@/lib/app-api-data-types";
+import { AddCateg } from "./addCateg";
 
 type DishesCategoryProps = {
   selectCategory: (categoryId: number) => void;
@@ -44,9 +43,7 @@ export const DishesCategory = ({
             </div>
           );
         })}
-        <button className="w-9 h-9 rounded-full bg-red-500 flex justify-center items-center cursor-pointer">
-          <Plus strokeWidth={2} className="text-white h-4 w-4 opacity-100" />
-        </button>
+        <AddCateg />
       </div>
     </div>
   );

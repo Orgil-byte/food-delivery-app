@@ -9,10 +9,12 @@ import { authorize } from "../middleware/authorize";
 
 const router = Router();
 
+// authenticate, authorize("ADMIN"), add these after you finish login
+
 router.post("/", addUsers);
-router.get("/", authenticate, authorize("ADMIN"), getUsers);
-router.get("/:id", authenticate, getUsersById);
-router.put("/:id", authenticate, updateUsers);
-router.delete("/:id", authenticate, authorize("ADMIN"), deleteUsers);
+router.get("/", getUsers);
+router.get("/:id", getUsersById);
+router.put("/:id", updateUsers);
+router.delete("/:id", deleteUsers);
 
 export default router;
