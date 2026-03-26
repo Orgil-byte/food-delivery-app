@@ -5,8 +5,9 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogTrigger,
 } from "@/components/ui/dialog";
-import { DialogTrigger } from "@radix-ui/react-dialog";
+
 import { X, Plus, LoaderCircle } from "lucide-react";
 import { ChangeEventHandler, useState } from "react";
 import { useRouter } from "next/navigation";

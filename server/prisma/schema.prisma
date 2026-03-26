@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  // url      = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -25,7 +25,7 @@ model Food {
   id             Int             @id @default(autoincrement())
   foodName       String
   price          Float
-  image          String
+  image          String?
   ingredients    String
   category       FoodCategory    @relation(fields: [foodCategoryId], references: [id])
   foodCategoryId Int

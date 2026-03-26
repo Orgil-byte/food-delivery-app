@@ -20,7 +20,6 @@ export interface Foods {
   price: number;
   image: string;
   ingredients: string;
-  desc: string;
   foodCategoryId: number;
   createdAt: string;
   updatedAt: string;
