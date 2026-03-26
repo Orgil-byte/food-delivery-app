@@ -1,6 +1,6 @@
 "use client";
 import { FoodCateg } from "@/lib/app-api-data-types";
-import { Plus, UploadCloud, X } from "lucide-react";
+import { LoaderCircle, Plus, UploadCloud, X } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -9,6 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ChangeEventHandler, useState } from "react";
+import { useRouter } from "next/navigation";
 
 type AddDishesProps = {
   category: FoodCateg;
@@ -21,6 +22,7 @@ export const AddDishes = ({ category }: AddDishesProps) => {
   const [foodIngreds, setFoodIngreds] = useState("");
 
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const onChangeFoodName: ChangeEventHandler<
     HTMLInputElement,
@@ -41,6 +43,31 @@ export const AddDishes = ({ category }: AddDishesProps) => {
     HTMLTextAreaElement
   > = (event) => {
     setFoodIngreds(event.target.value);
+  };
+
+  const addDishes = async () => {
+    setLoading(true);
+    const foods = {
+      foodName: foodName,
+      ingredients: foodIngreds,
+      price: Number(foodPrice),
+      foodCategoryId: category.id,
+    };
+
+    try {
+      await fetch("http://localhost:3001/foods", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(foods),
+      });
+
+      setIsOpen(false);
+      router.refresh();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -91,7 +118,7 @@ export const AddDishes = ({ category }: AddDishesProps) => {
               <input
                 value={foodPrice}
                 onChange={onChangeFoodPrice}
-                type="text"
+                type="number"
                 placeholder="Enter price..."
                 className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 placeholder:text-gray-400 transition-all"
               />
@@ -122,8 +149,11 @@ export const AddDishes = ({ category }: AddDishesProps) => {
           </div>
         </div>
         <div className="flex justify-end pt-1">
-          <button className="px-6 py-2.5 cursor-pointer bg-[#1A1A1A] text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors">
-            Add Dish
+          <button
+            onClick={addDishes}
+            className="px-6 py-2.5 cursor-pointer bg-[#1A1A1A] text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
+          >
+            {loading ? <LoaderCircle className="animate-spin" /> : "Add Dish"}
           </button>
         </div>
       </DialogContent>

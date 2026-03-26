@@ -10,24 +10,16 @@ export const DishesMainContents = ({
 }: {
   initialCategories: FoodCateg[];
 }) => {
-  const [categoriesName, setCategoriesName] = useState<FoodCateg[]>(
-    initialCategories.slice(1),
-  );
   const [isActive, setIsActive] = useState(1);
 
   const selectCategory = (categoryId: number) => {
-    const selectedCategory = initialCategories.filter(
-      (category) => category.id === categoryId,
-    );
-
-    if (categoryId === 1) {
-      setCategoriesName(initialCategories.slice(1));
-    } else {
-      setCategoriesName(selectedCategory);
-    }
-
     setIsActive(categoryId);
   };
+
+  const categoriesName =
+    isActive === 1
+      ? initialCategories.slice(1)
+      : initialCategories.filter((c) => c.id === isActive);
 
   return (
     <>

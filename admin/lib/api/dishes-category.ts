@@ -7,7 +7,6 @@ export const dishesCategoryApi = async (): Promise<CategoriesType> => {
       "Content-Type": "application/json",
     },
   });
-  console.log(categoryData);
 
   const theCategory = await categoryData.json();
 
