@@ -78,7 +78,7 @@ export const AddDishes = ({ category }: AddDishesProps) => {
             <Plus strokeWidth={2} className="text-white h-5 w-5" />
           </div>
           <p className="text-center font-medium text-[14px] text-gray-900 leading-tight">
-            Add new Dish to <br /> {category?.categoryName || "Appetizers"}
+            Add new Dish to <br /> {category.categoryName || "Appetizers"}
           </p>
         </div>
       </DialogTrigger>
@@ -88,7 +88,7 @@ export const AddDishes = ({ category }: AddDishesProps) => {
       >
         <DialogHeader className="flex flex-row items-center justify-between p-0 m-0 space-y-0">
           <DialogTitle className="text-lg font-bold text-gray-900">
-            Add new Dish to {category?.categoryName || "Appetizers"}
+            Add new Dish to {category.categoryName || "Appetizers"}
           </DialogTitle>
           <button
             onClick={() => setIsOpen(false)}
@@ -136,16 +136,18 @@ export const AddDishes = ({ category }: AddDishesProps) => {
               className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 placeholder:text-gray-400 resize-none transition-all"
             />
           </div>
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1.5 relative">
             <label className="text-[13px] font-medium text-gray-700">
               Food image
             </label>
-            <div className="w-full h-50 border border-dashed border-blue-200 bg-[#F8FAFC] rounded-xl flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-blue-50/50 transition-colors">
-              <UploadCloud className="h-5 w-5 text-gray-500" />
-              <span className="text-[13px] text-gray-500 font-medium">
-                Choose a file or drag & drop it here
-              </span>
-            </div>
+            <input
+              type="file"
+              className="w-full h-50 border border-dashed border-blue-200 bg-[#F8FAFC] rounded-xl flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-blue-50/50 transition-colors"
+            />
+            <UploadCloud className="h-5 w-5 text-gray-500 absolute bottom-[40%] left-[48%]" />
+            <span className="text-[13px] text-gray-500 font-medium absolute bottom-[30%] left-[25%]">
+              Choose a file or drag & drop it here
+            </span>
           </div>
         </div>
         <div className="flex justify-end pt-1">

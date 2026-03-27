@@ -13,10 +13,10 @@ export const FoodLists = ({ categories }: CategoriesType) => {
         return (
           <div
             key={category.id}
-            className="w-full p-6 bg-white rounded-xl flex flex-col gap-4 flex-wrap"
+            className="w-full p-6 bg-white rounded-xl flex flex-col gap-4 "
           >
             <h1 className="font-semibold text-[20px]">{`${category.categoryName} (${category.foods.length})`}</h1>
-            <div className="flex gap-4">
+            <div className="flex gap-4 flex-wrap">
               <AddDishes category={category} />
               {category.foods.map((food: Foods) => {
                 return (
@@ -29,7 +29,11 @@ export const FoodLists = ({ categories }: CategoriesType) => {
                       src={`${food.image}`}
                       alt="Food Image"
                     />
-                    <UpdateDishes />
+                    <UpdateDishes
+                      category={category}
+                      food={food}
+                      categories={categories}
+                    />
                     <div className="flex flex-col gap-2">
                       <div className="flex justify-between items-center">
                         <p className="text-red-500 text-[14px] font-medium">
