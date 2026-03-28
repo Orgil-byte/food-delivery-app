@@ -49,7 +49,7 @@ export const SideBar = () => {
             <p className={"foodMenu"}>Food menu</p>
           </button>
         </Link>
-        <Link href={"/"}>
+        <Link href={"/Orders"}>
           <button
             onClick={() => setIsActive("orders")}
             className={btnColorChange("orders")}

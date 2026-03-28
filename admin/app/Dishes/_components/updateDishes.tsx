@@ -1,4 +1,4 @@
-import { Edit2, X, Trash2, LoaderCircle } from "lucide-react";
+import { Edit2, X, Trash2, LoaderCircle, UploadCloud } from "lucide-react";
 import { useState } from "react";
 import {
   Dialog,
@@ -75,7 +75,7 @@ export const UpdateDishes = ({
       console.log(error);
     } finally {
       setLoading(false);
-      router.refresh;
+      router.refresh();
     }
   };
 
@@ -131,15 +131,15 @@ export const UpdateDishes = ({
             className="border border-gray-200 rounded-lg px-3 py-2 w-full outline-none focus:border-gray-400 text-gray-900"
           />
           <label className="text-gray-500 mt-2.5">Image</label>
-          <div className="relative w-full h-30 rounded-lg border border-gray-100 overflow-hidden">
-            {/* <img
-              src=""
-              alt="Dish preview"
-              className="w-full h-full object-cover"
-            /> */}
-            {/* <button className="absolute top-2 right-2 w-6 h-6 bg-white rounded-full flex items-center justify-center text-gray-600 shadow-sm hover:bg-gray-50">
-              <X className="w-3.5 h-3.5" />
-            </button> */}
+          <div className="flex flex-col gap-1.5 relative">
+            <input
+              type="file"
+              className="w-full h-50 border border-dashed border-blue-200 bg-[#F8FAFC] rounded-xl flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-blue-50/50 transition-colors"
+            />
+            <UploadCloud className="h-5 w-5 text-gray-500 absolute bottom-[40%] left-[48%]" />
+            <span className="text-[13px] text-gray-500 font-medium absolute bottom-[30%] left-[25%]">
+              Choose a file or drag & drop it here
+            </span>
           </div>
         </div>
         <div className="flex justify-between items-center mt-8">

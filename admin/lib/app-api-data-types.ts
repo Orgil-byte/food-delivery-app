@@ -25,3 +25,21 @@ export interface Foods {
   updatedAt: string;
   category: FoodCateg;
 }
+
+export interface Order {
+  id: number;
+  totalPrice: number;
+  status: string;
+  userId: number;
+  createdAt: string;
+  updatedAt: string;
+  foodOrderItems: FoodOrderItem[];
+}
+
+export interface FoodOrderItem {
+  id: number;
+  quantity: number;
+  foodId: number;
+  foodOrderId: number;
+  food: Foods;
+}
