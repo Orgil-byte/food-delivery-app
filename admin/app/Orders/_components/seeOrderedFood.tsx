@@ -6,7 +6,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
-  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
@@ -14,10 +13,10 @@ import {
 import { Order } from "@/lib/app-api-data-types";
 
 type OrderMainContentsProps = {
-  ordersData: Order[];
+  orders: Order;
 };
 
-export const SeeOrderedFood = ({ ordersData }: OrderMainContentsProps) => {
+export const SeeOrderedFood = ({ orders }: OrderMainContentsProps) => {
   const [position, setPosition] = React.useState("bottom");
 
   return (
@@ -32,28 +31,19 @@ export const SeeOrderedFood = ({ ordersData }: OrderMainContentsProps) => {
             value={position}
             onValueChange={setPosition}
           >
-            {ordersData.map((orders) => {
+            {orders.foodOrderItems.map((item) => {
               return (
                 <DropdownMenuRadioItem
-                  key={orders.id}
+                  key={item.id}
                   className="p-0 flex items-center justify-between"
                   value="Ordered Food Infos"
                 >
                   <div className="flex items-center gap-2.5">
                     {/* <img src="" alt="" /> */}
                     <div className="w-8 h-8 bg-gray-300 rounded-sm"></div>
-                    <div className="text-sm">
-                      {orders.foodOrderItems.map((food) => {
-                        return food.food.foodName;
-                      })}
-                    </div>
+                    <div className="text-sm">{item.food.foodName}</div>
                   </div>
-                  <div className="text-sm">
-                    x{" "}
-                    {orders.foodOrderItems.map((food) => {
-                      return food.quantity;
-                    })}
-                  </div>
+                  <div className="text-sm">x {item.quantity}</div>
                 </DropdownMenuRadioItem>
               );
             })}

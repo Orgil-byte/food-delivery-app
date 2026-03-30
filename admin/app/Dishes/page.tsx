@@ -5,7 +5,8 @@ import { DishesMainContents } from "./dishesMainContents";
 const Dishes = async () => {
   const data = await dishesCategoryApi();
   const categories: FoodCateg[] = data.foodCat.sort(
-    (a: { id: number }, b: { id: number }) => a.id - b.id,
+    (a: { categoryName: string }, b: { categoryName: string }) =>
+      a.categoryName.localeCompare(b.categoryName),
   );
 
   return (

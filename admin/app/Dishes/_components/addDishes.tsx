@@ -22,26 +22,17 @@ export const AddDishes = ({ category }: AddDishesProps) => {
   const [foodIngreds, setFoodIngreds] = useState("");
 
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
+  // const router = useRouter(); Because it is not working due to dialog component or something else i don't know
 
-  const onChangeFoodName: ChangeEventHandler<
-    HTMLInputElement,
-    HTMLInputElement
-  > = (event) => {
+  const onChangeFoodName: ChangeEventHandler<HTMLInputElement> = (event) => {
     setFoodName(event.target.value);
   };
 
-  const onChangeFoodPrice: ChangeEventHandler<
-    HTMLInputElement,
-    HTMLInputElement
-  > = (event) => {
+  const onChangeFoodPrice: ChangeEventHandler<HTMLInputElement> = (event) => {
     setFoodPrice(event.target.value);
   };
 
-  const onChangeIngreds: ChangeEventHandler<
-    HTMLTextAreaElement,
-    HTMLTextAreaElement
-  > = (event) => {
+  const onChangeIngreds: ChangeEventHandler<HTMLTextAreaElement> = (event) => {
     setFoodIngreds(event.target.value);
   };
 
@@ -63,11 +54,12 @@ export const AddDishes = ({ category }: AddDishesProps) => {
         body: JSON.stringify(foods),
       });
 
+      window.location.reload();
       setIsOpen(false);
-      setLoading(false);
-      router.refresh();
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -79,7 +71,7 @@ export const AddDishes = ({ category }: AddDishesProps) => {
             <Plus strokeWidth={2} className="text-white h-5 w-5" />
           </div>
           <p className="text-center font-medium text-[14px] text-gray-900 leading-tight">
-            Add new Dish to <br /> {category.categoryName || "Appetizers"}
+            Add new Dish to <br /> {category.categoryName}
           </p>
         </div>
       </DialogTrigger>

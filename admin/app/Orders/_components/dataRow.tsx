@@ -1,13 +1,34 @@
 import { Order } from "@/lib/app-api-data-types";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { SeeOrderedFood } from "./seeOrderedFood";
+import { DeliveryStateChange } from "./deliveryStateChange";
+import { Dispatch, SetStateAction } from "react";
+import { Checkbox } from "@/components/ui/checkbox";
 
 type OrderMainContentsProps = {
   ordersData: Order[];
+  selected: boolean;
+  setSelected: Dispatch<SetStateAction<boolean>>;
 };
 
-export const DataRow = ({ ordersData }: OrderMainContentsProps) => {
-  return ordersData.map((orders) => {
+export const DataRow = ({
+  ordersData,
+  selected,
+  setSelected,
+}: OrderMainContentsProps) => {
+  // const setSelectedOrders = () => {
+  //   if (selected === false) {
+  //     setSelected(true);
+  //   } else if(         ){
+  //     setSelected(true);
+  //   }
+  // };
+
+  const ordersMainOrderedByDate = [...ordersData].sort(
+    (acc, cumm) => +new Date(cumm.createdAt) - +new Date(acc.createdAt),
+  );
+
+  return ordersMainOrderedByDate.map((orders) => {
     const options: Intl.DateTimeFormatOptions = {
       year: "numeric",
       month: "numeric",
@@ -15,7 +36,9 @@ export const DataRow = ({ ordersData }: OrderMainContentsProps) => {
       hour: "2-digit",
       minute: "2-digit",
     };
+
     const dateObj = new Date(orders.createdAt);
+
     const theCreatedAtToReadable = dateObj.toLocaleDateString(
       undefined,
       options,
@@ -26,10 +49,10 @@ export const DataRow = ({ ordersData }: OrderMainContentsProps) => {
         className="flex justify-between border-b items-center border-zinc-100 bg-white text-zinc-600"
       >
         <div className="flex items-center p-4 w-12 h-13">
-          <input
-            type="checkbox"
-            className="h-4 w-4 rounded border-zinc-300"
-            aria-label="Select row"
+          <Checkbox
+            id="terms-checkbox-basic"
+            name="terms-checkbox-basic"
+            className="data-[state=checked]:bg-black data-[state=checked]:text-white"
           />
         </div>
         <div className="flex items-center p-4 w-14 h-13">{orders.id}</div>
@@ -44,7 +67,7 @@ export const DataRow = ({ ordersData }: OrderMainContentsProps) => {
             )}
             <div>foods</div>
           </span>
-          <SeeOrderedFood ordersData={ordersData} />
+          <SeeOrderedFood orders={orders} />
         </div>
         <div className="flex  items-center w-40 h-13 px-4">
           {theCreatedAtToReadable}
@@ -58,13 +81,7 @@ export const DataRow = ({ ordersData }: OrderMainContentsProps) => {
           </div>
         </div>
         <div className="flex  items-center w-40 h-13 px-4">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-red-200 bg-red-50 px-3 py-1 text-sm font-medium text-zinc-800">
-            {orders.status}
-            <span className="flex flex-col leading-none text-zinc-500">
-              <ChevronUp className="h-2.5 w-2.5 -mb-0.5" />
-              <ChevronDown className="h-2.5 w-2.5" />
-            </span>
-          </span>
+          <DeliveryStateChange orders={orders} />
         </div>
       </div>
     );

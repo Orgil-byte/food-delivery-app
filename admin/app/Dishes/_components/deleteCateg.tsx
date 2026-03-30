@@ -1,24 +1,24 @@
 "use client";
 
-import { Foods } from "@/lib/app-api-data-types";
+import { FoodCateg } from "@/lib/app-api-data-types";
 import { LoaderCircle, Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-type DeleteDishes = {
-  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  food: Foods;
+type DeleteCategProps = {
+  category: FoodCateg;
 };
 
-export const DeleteDishes = ({ setOpen, food }: DeleteDishes) => {
+export const DeleteCateg = ({ category }: DeleteCategProps) => {
   const [loading, setLoading] = useState(false);
-  // const router = useRouter(); Because it is not working due to dialog component or something else i don't know
 
-  const deleteDishes = async () => {
+  const deleteCateg = async () => {
     setLoading(true);
+    if (category.foods.length > 0) {
+      window.alert("The Category has foods, To delete it remove foods first");
+    }
 
     try {
-      await fetch(`http://localhost:3001/foods/${food.id}`, {
+      await fetch(`http://localhost:3001/foodCateg/${category.id}`, {
         method: "DELETE",
         headers: {
           "Content-type": "application/json",
@@ -26,7 +26,6 @@ export const DeleteDishes = ({ setOpen, food }: DeleteDishes) => {
       });
       setLoading(false);
       window.location.reload();
-      setOpen(false);
     } catch (error) {
       console.log(error);
     }
@@ -34,7 +33,7 @@ export const DeleteDishes = ({ setOpen, food }: DeleteDishes) => {
 
   return (
     <button
-      onClick={deleteDishes}
+      onClick={deleteCateg}
       className="cursor-pointer w-10.5 h-10.5 border border-red-100 rounded-lg flex items-center justify-center text-red-500 hover:bg-red-50 transition-colors"
     >
       {loading ? (

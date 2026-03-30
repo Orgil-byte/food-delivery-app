@@ -17,7 +17,7 @@ export const DishesCategory = ({
   return (
     <div className="w-full p-6 bg-white rounded-xl flex flex-col gap-4">
       <h1 className="font-semibold text-[20px]">Dishes category</h1>
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-3 items-center">
         {categories.map((category: FoodCateg) => {
           const count =
             category.id === 1

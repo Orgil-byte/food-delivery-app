@@ -2,40 +2,41 @@
 
 import {
   Dialog,
+  DialogTrigger,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
-
-import { X, Plus, LoaderCircle } from "lucide-react";
+import { FoodCateg } from "@/lib/app-api-data-types";
+import { Edit2, LoaderCircle, X } from "lucide-react";
 import { ChangeEventHandler, useState } from "react";
-import { useRouter } from "next/navigation";
 
-export const AddCateg = () => {
-  const [categoryName, setCategoryName] = useState("");
+type UpdateCategProps = {
+  category: FoodCateg;
+};
+
+export const UpdateCateg = ({ category }: UpdateCategProps) => {
+  const [categoryName, setCategoryName] = useState(category.categoryName);
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  // const router = useRouter(); Because it is not working due to dialog component or something else i don't know
 
   const onChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     setCategoryName(event.target.value);
   };
 
-  const addCategory = async () => {
+  const updateCateg = async () => {
     setLoading(true);
-    const category = {
+    const categories = {
       categoryName: categoryName,
     };
 
     try {
-      await fetch("http://localhost:3001/foodCateg", {
-        method: "POST",
+      await fetch(`http://localhost:3001/foodCateg/${category.id}`, {
+        method: "PUT",
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify(category),
+        body: JSON.stringify(categories),
       });
 
       window.location.reload();
@@ -50,7 +51,9 @@ export const AddCateg = () => {
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger className="w-9 h-9 rounded-full bg-red-500 flex justify-center items-center cursor-pointer">
-        <Plus strokeWidth={2} className="text-white h-4 w-4" />
+        <div className="w-10.5 h-10.5 rounded-lg border border-red-100 hover: bg-white flex justify-center items-center  cursor-pointer hover:bg-red-50 transition-colors">
+          <Edit2 strokeWidth={2} className="text-red-500" />
+        </div>
       </DialogTrigger>
       <DialogContent
         aria-describedby={undefined}
@@ -58,7 +61,7 @@ export const AddCateg = () => {
       >
         <DialogHeader className="flex flex-row items-center justify-between p-0 space-y-0">
           <DialogTitle className="text-lg font-semibold text-gray-900">
-            Add new category
+            Change category name
           </DialogTitle>
           <button
             onClick={() => setIsOpen(false)}
@@ -74,20 +77,20 @@ export const AddCateg = () => {
           <input
             type="text"
             placeholder="Type category name..."
-            value={categoryName}
+            defaultValue={categoryName}
             onChange={onChange}
             className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg outline-none focus:border-blue-400 focus:ring-2 focus:ring-blue-100 placeholder:text-gray-400 transition-all"
           />
         </div>
         <div className="flex justify-end">
           <button
-            onClick={addCategory}
+            onClick={updateCateg}
             className="px-5 cursor-pointer bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors"
           >
             {loading ? (
               <LoaderCircle className="animate-spin" />
             ) : (
-              "Add category"
+              "Change name"
             )}
           </button>
         </div>

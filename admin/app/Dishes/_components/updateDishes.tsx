@@ -30,7 +30,8 @@ export const UpdateDishes = ({
   const [open, setOpen] = useState(false);
 
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
+
+  // const router = useRouter(); Because it is not working due to dialog component or something else i don't know
 
   const onChangeFoodName: ChangeEventHandler<HTMLInputElement> = (event) => {
     setFoodName(event.target.value);
@@ -69,13 +70,13 @@ export const UpdateDishes = ({
         },
         body: JSON.stringify(foods),
       });
+
+      window.location.reload();
       setOpen(false);
-      router.refresh();
     } catch (error) {
       console.log(error);
     } finally {
       setLoading(false);
-      router.refresh();
     }
   };
 

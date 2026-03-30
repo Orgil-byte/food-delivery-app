@@ -1,22 +1,22 @@
 "use client";
-import { useState } from "react";
+import { usePathname } from "next/navigation"; // 1. Import this hook
 import { Sidebar } from "@/components/ui/sidebar";
 import { LayoutDashboard, TruckIcon } from "lucide-react";
 import Link from "next/link";
 
 export const SideBar = () => {
-  const [isActive, setIsActive] = useState("foodMenu");
+  const path = usePathname();
 
-  const btnColorChange = (buttonType: string) => {
+  const btnColorChange = (currentPath: string) => {
     const base =
       "h-10 w-41.25 px-6 flex items-center gap-2.5 transition-all ease-out duration-300 cursor-pointer";
     const normal = "text-black bg-white";
     const active = "text-white bg-[#18181B] rounded-full";
-    return `${base} ${isActive === buttonType ? active : normal}`;
+    return `${base} ${path === currentPath ? active : normal}`;
   };
 
-  const textIconColor = (buttonType: string) => {
-    return isActive === buttonType ? "text-white" : "text-black";
+  const textIconColor = (currentPath: string) => {
+    return path === currentPath ? "text-white" : "text-black";
   };
 
   return (
@@ -35,27 +35,21 @@ export const SideBar = () => {
           <p className="text-xs leading-4 text-[#71717A]">Swift delivery</p>
         </div>
       </div>
-
       <div className="w-41.25 h-26 flex flex-col gap-6 bg-white mt-10">
-        <Link href={"/Dishes"}>
-          <button
-            onClick={() => setIsActive("foodMenu")}
-            className={btnColorChange("foodMenu")}
-          >
+        <Link href="/Dishes">
+          <button className={btnColorChange("/Dishes")}>
             <LayoutDashboard
               strokeWidth={1}
-              className={textIconColor("foodMenu")}
+              className={textIconColor("/Dishes")}
             />
-            <p className={"foodMenu"}>Food menu</p>
+            <p className={textIconColor("/Dishes")}>Food menu</p>
           </button>
         </Link>
-        <Link href={"/Orders"}>
-          <button
-            onClick={() => setIsActive("orders")}
-            className={btnColorChange("orders")}
-          >
-            <TruckIcon strokeWidth={1} className={textIconColor("orders")} />
-            <p className={textIconColor("orders")}>Orders</p>
+
+        <Link href="/Orders">
+          <button className={btnColorChange("/Orders")}>
+            <TruckIcon strokeWidth={1} className={textIconColor("/Orders")} />
+            <p className={textIconColor("/Orders")}>Orders</p>
           </button>
         </Link>
       </div>

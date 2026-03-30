@@ -3,9 +3,28 @@ import { Calendar } from "lucide-react";
 
 type OrderMainContentsProps = {
   ordersData: Order[];
+  selected: boolean;
 };
 
-export const Top = ({ ordersData }: OrderMainContentsProps) => {
+export const Top = ({ ordersData, selected }: OrderMainContentsProps) => {
+  const ordersMainOrderedByDate = [...ordersData].sort(
+    (acc, cumm) => +new Date(acc.createdAt) - +new Date(cumm.createdAt),
+  );
+
+  const date = ordersMainOrderedByDate.map((orders) => {
+    const options: Intl.DateTimeFormatOptions = {
+      year: "numeric",
+      month: "numeric",
+      day: "numeric",
+    };
+    const dateObj = new Date(orders.createdAt);
+    const theCreatedAtToReadable = dateObj.toLocaleDateString(
+      undefined,
+      options,
+    );
+    return theCreatedAtToReadable;
+  });
+
   return (
     <div className="flex flex-wrap  items-center justify-between gap-4 border-b border-zinc-200 p-5">
       <div>
@@ -17,11 +36,13 @@ export const Top = ({ ordersData }: OrderMainContentsProps) => {
       <div className="flex flex-wrap items-center gap-3">
         <div className="flex h-9 items-center gap-2 rounded-full border border-zinc-200 px-4 text-sm text-zinc-700">
           <Calendar className="h-4 w-4  text-zinc-500" />
-          <span>13 June 2023 - 14 July 2023</span>
+          <span>
+            {date[0]} - {date.at(-1)}
+          </span>
         </div>
         <button
           type="button"
-          className="h-9 rounded-full bg-zinc-900 opacity-20 px-4 text-sm font-medium text-white hover:bg-zinc-800"
+          className={`h-9 rounded-full bg-zinc-900 ${selected === false ? "opacity-20" : "opacity-100"} px-4 text-sm font-medium text-white hover:bg-zinc-800`}
         >
           Change delivery state
         </button>
