@@ -36,7 +36,7 @@ export const DishesMainContents = ({
         selectCategory={selectCategory}
         isActive={isActive}
       />
-      <FoodLists categories={categoriesName} />
+      <FoodLists foodCat={categoriesName} />
     </>
   );
 };

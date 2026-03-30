@@ -64,6 +64,7 @@ export const AddDishes = ({ category }: AddDishesProps) => {
       });
 
       setIsOpen(false);
+      setLoading(false);
       router.refresh();
     } catch (error) {
       console.log(error);

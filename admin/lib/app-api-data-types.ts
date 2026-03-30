@@ -1,5 +1,5 @@
 export interface CategoriesType {
-  categories: FoodCateg[];
+  foodCat: FoodCateg[];
 }
 
 export interface FoodCateg {
@@ -26,6 +26,10 @@ export interface Foods {
   category: FoodCateg;
 }
 
+export interface RootOrder {
+  orders: Order[];
+}
+
 export interface Order {
   id: number;
   totalPrice: number;
@@ -33,7 +37,21 @@ export interface Order {
   userId: number;
   createdAt: string;
   updatedAt: string;
+  user: User;
   foodOrderItems: FoodOrderItem[];
+}
+
+export interface User {
+  id: number;
+  email: string;
+  name: string;
+  password: string;
+  phoneNumber: number;
+  address: string;
+  role: string;
+  isVerified: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export interface FoodOrderItem {

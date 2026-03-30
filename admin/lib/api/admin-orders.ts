@@ -1,6 +1,6 @@
-import { Order } from "../app-api-data-types";
+import { RootOrder } from "../app-api-data-types";
 
-export const foodOrderApi = async (): Promise<Order> => {
+export const foodOrderApi = async (): Promise<RootOrder> => {
   const orderData = await fetch("http://localhost:3001/foodOrder", {
     method: "GET",
     headers: {

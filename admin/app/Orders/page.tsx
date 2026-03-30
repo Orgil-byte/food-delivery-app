@@ -1,9 +1,14 @@
+import { foodOrderApi } from "@/lib/api/admin-orders";
 import { OrderMainContents } from "./orderMainContents";
+import { Order } from "@/lib/app-api-data-types";
 
-const OrdersMain = () => {
+const OrdersMain = async () => {
+  const data = await foodOrderApi();
+  const ordersData: Order[] = data.orders;
+
   return (
     <div>
-      <OrderMainContents />
+      <OrderMainContents ordersData={ordersData} />
     </div>
   );
 };

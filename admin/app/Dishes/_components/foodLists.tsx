@@ -6,10 +6,10 @@ import { Plus } from "lucide-react";
 import { UpdateDishes } from "./updateDishes";
 import { AddDishes } from "./addDishes";
 
-export const FoodLists = ({ categories }: CategoriesType) => {
+export const FoodLists = ({ foodCat }: CategoriesType) => {
   return (
     <div className="flex flex-col gap-6 pb-6">
-      {categories.map((category) => {
+      {foodCat.map((category) => {
         return (
           <div
             key={category.id}
@@ -32,7 +32,7 @@ export const FoodLists = ({ categories }: CategoriesType) => {
                     <UpdateDishes
                       category={category}
                       food={food}
-                      categories={categories}
+                      categories={foodCat}
                     />
                     <div className="flex flex-col gap-2">
                       <div className="flex justify-between items-center">

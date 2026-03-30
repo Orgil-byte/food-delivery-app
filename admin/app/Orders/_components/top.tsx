@@ -1,11 +1,18 @@
+import { Order } from "@/lib/app-api-data-types";
 import { Calendar } from "lucide-react";
 
-export const Top = () => {
+type OrderMainContentsProps = {
+  ordersData: Order[];
+};
+
+export const Top = ({ ordersData }: OrderMainContentsProps) => {
   return (
     <div className="flex flex-wrap  items-center justify-between gap-4 border-b border-zinc-200 p-5">
       <div>
         <p className="text-xl font-bold text-zinc-900">Orders</p>
-        <p className="mt-0.5 text-base font-medium text-zinc-500">32 items</p>
+        <p className="mt-0.5 text-base font-medium text-zinc-500">
+          {ordersData.length} items
+        </p>
       </div>
       <div className="flex flex-wrap items-center gap-3">
         <div className="flex h-9 items-center gap-2 rounded-full border border-zinc-200 px-4 text-sm text-zinc-700">

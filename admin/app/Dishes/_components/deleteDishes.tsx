@@ -24,13 +24,11 @@ export const DeleteDishes = ({ setOpen, food }: DeleteDishes) => {
           "Content-type": "application/json",
         },
       });
+      setLoading(false);
       setOpen(false);
       router.refresh();
     } catch (error) {
       console.log(error);
-    } finally {
-      setLoading(false);
-      router.refresh;
     }
   };
 
