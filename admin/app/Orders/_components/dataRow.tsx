@@ -7,8 +7,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 type OrderMainContentsProps = {
   ordersData: Order[];
-  selected: boolean;
-  setSelected: Dispatch<SetStateAction<boolean>>;
+  selected: number[];
+  setSelected: Dispatch<SetStateAction<number[]>>;
 };
 
 export const DataRow = ({
@@ -16,13 +16,17 @@ export const DataRow = ({
   selected,
   setSelected,
 }: OrderMainContentsProps) => {
-  // const setSelectedOrders = () => {
-  //   if (selected === false) {
-  //     setSelected(true);
-  //   } else if(         ){
-  //     setSelected(true);
-  //   }
-  // };
+  const knowSelectedOrders = (id: number) => {
+    setSelected((prevSelected) => {
+      const isAlreadySelected = prevSelected.includes(id);
+
+      if (isAlreadySelected) {
+        return prevSelected.filter((itemId) => itemId !== id);
+      } else {
+        return [...prevSelected, id];
+      }
+    });
+  };
 
   const ordersMainOrderedByDate = [...ordersData].sort(
     (acc, cumm) => +new Date(cumm.createdAt) - +new Date(acc.createdAt),
@@ -50,6 +54,7 @@ export const DataRow = ({
       >
         <div className="flex items-center p-4 w-12 h-13">
           <Checkbox
+            onClick={() => knowSelectedOrders(orders.id)}
             id="terms-checkbox-basic"
             name="terms-checkbox-basic"
             className="data-[state=checked]:bg-black data-[state=checked]:text-white"

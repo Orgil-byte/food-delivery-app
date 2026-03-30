@@ -1,9 +1,10 @@
 import { Order } from "@/lib/app-api-data-types";
 import { Calendar } from "lucide-react";
+import { ChangeDeliveryStateBtn } from "./changeDeliveryStateBtn";
 
 type OrderMainContentsProps = {
   ordersData: Order[];
-  selected: boolean;
+  selected: number[];
 };
 
 export const Top = ({ ordersData, selected }: OrderMainContentsProps) => {
@@ -40,12 +41,7 @@ export const Top = ({ ordersData, selected }: OrderMainContentsProps) => {
             {date[0]} - {date.at(-1)}
           </span>
         </div>
-        <button
-          type="button"
-          className={`h-9 rounded-full bg-zinc-900 ${selected === false ? "opacity-20" : "opacity-100"} px-4 text-sm font-medium text-white hover:bg-zinc-800`}
-        >
-          Change delivery state
-        </button>
+        <ChangeDeliveryStateBtn selected={selected} />
       </div>
     </div>
   );

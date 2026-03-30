@@ -11,7 +11,7 @@ type OrderMainContentsProps = {
 };
 
 export const OrderMainContents = ({ ordersData }: OrderMainContentsProps) => {
-  const [selected, setSelected] = useState(false);
+  const [selected, setSelected] = useState<number[]>([]);
 
   return (
     <div className="w-full min-h-screen bg-neutral-100 pt-6 pl-6 pr-10 pb-10">
