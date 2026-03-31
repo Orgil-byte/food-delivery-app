@@ -19,10 +19,31 @@ export const ChangeDeliveryStateBtn = ({
   selected,
 }: ChangeDeliveryStateBtnProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [status, setStatus] = useState("");
 
   const openDialog = () => {
     if (selected.length >= 1) {
       setIsOpen(true);
+    }
+  };
+
+  const putStatusGroup = async () => {
+    try {
+      await fetch(`http://localhost:3001/foodOrder/`, {
+        method: "PATCH",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          ids: selected,
+          status: status,
+        }),
+      });
+
+      window.location.reload();
+      setIsOpen(false);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -57,8 +78,9 @@ export const ChangeDeliveryStateBtn = ({
               className="sr-only"
             />
             <Label
+              onClick={() => setStatus("DELIVERED")}
               htmlFor="delivered"
-              className="px-4 py-1.5 rounded-full border border-zinc-200 text-zinc-400 text-xs cursor-pointer hover:bg-zinc-100 transition-colors"
+              className={`px-4 py-1.5 rounded-full border ${status === "DELIVERED" ? "border-green-500 text-green-800" : "border-zinc-200 text-zinc-400"} text-xs cursor-pointer hover:bg-zinc-100 transition-colors`}
             >
               Delivered
             </Label>
@@ -66,28 +88,33 @@ export const ChangeDeliveryStateBtn = ({
           <div className="flex items-center">
             <RadioGroupItem value="pending" id="pending" className="sr-only" />
             <Label
+              onClick={() => setStatus("PENDING")}
               htmlFor="pending"
-              className="px-4 py-1.5 rounded-full border border-zinc-200 text-zinc-400 text-xs cursor-pointer hover:bg-zinc-100 transition-colors"
+              className={`px-4 py-1.5 rounded-full border ${status === "PENDING" ? "border-red-500 text-red-800" : "border-zinc-200 text-zinc-400"} text-xs cursor-pointer hover:bg-zinc-100 transition-colors`}
             >
               Pending
             </Label>
           </div>
           <div className="flex items-center">
             <RadioGroupItem
-              value="cancelled"
+              value="canceled"
               id="cancelled"
               className="sr-only"
             />
             <Label
-              htmlFor="cancelled"
-              className="px-4 py-1.5 rounded-full border border-zinc-200 text-zinc-400 text-xs cursor-pointer hover:bg-zinc-100 transition-colors"
+              onClick={() => setStatus("CANCELED")}
+              htmlFor="canceled"
+              className={`px-4 py-1.5 rounded-full border ${status === "CANCELED" ? "border-neutral-500 text-neutral-800" : "border-zinc-200 text-zinc-400"} text-xs cursor-pointer hover:bg-zinc-100 transition-colors`}
             >
               Cancelled
             </Label>
           </div>
         </RadioGroup>
 
-        <Button className="w-full bg-zinc-900 hover:bg-zinc-800 cursor-pointer text-white rounded-full h-10 font-medium">
+        <Button
+          onClick={putStatusGroup}
+          className="w-full bg-zinc-900 hover:bg-zinc-800 cursor-pointer text-white rounded-full h-10 font-medium"
+        >
           Save
         </Button>
       </DialogContent>
