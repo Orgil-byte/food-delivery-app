@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
+import { LoaderCircle } from "lucide-react";
 
 type ChangeDeliveryStateBtnProps = {
   selected: number[];
@@ -20,6 +21,7 @@ export const ChangeDeliveryStateBtn = ({
 }: ChangeDeliveryStateBtnProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const openDialog = () => {
     if (selected.length >= 1) {
@@ -28,22 +30,28 @@ export const ChangeDeliveryStateBtn = ({
   };
 
   const putStatusGroup = async () => {
+    if (!status || selected.length === 0) return;
+    setLoading(true);
+
     try {
-      await fetch(`http://localhost:3001/foodOrder/`, {
-        method: "PATCH",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({
-          ids: selected,
-          status: status,
-        }),
-      });
+      await Promise.all(
+        selected.map((id) =>
+          fetch(`http://localhost:3001/foodOrder/${id}`, {
+            method: "PUT",
+            headers: {
+              "Content-type": "application/json",
+            },
+            body: JSON.stringify({ status }),
+          }),
+        ),
+      );
 
       window.location.reload();
       setIsOpen(false);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -115,7 +123,7 @@ export const ChangeDeliveryStateBtn = ({
           onClick={putStatusGroup}
           className="w-full bg-zinc-900 hover:bg-zinc-800 cursor-pointer text-white rounded-full h-10 font-medium"
         >
-          Save
+          {loading ? <LoaderCircle className="animate-spin" /> : "Add Dish"}
         </Button>
       </DialogContent>
     </Dialog>
