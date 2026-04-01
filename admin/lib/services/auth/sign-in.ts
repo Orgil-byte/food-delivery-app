@@ -7,20 +7,23 @@ export type SignInResponse = {
   accessToken: string;
 };
 
-export const signIn = async (user: User) => {
-  try {
-    const response = await fetch("/api/user/auth", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(user),
-    });
+export const signIn = async (user: User): Promise<SignInResponse> => {
+  const response = await fetch("/api/user/auth", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(user),
+  });
 
-    const data = (await response.json()) as SignInResponse;
+  const text = await response.text();
+  const data = text ? JSON.parse(text) : {};
 
-    return data;
-  } catch (error) {
-    console.log(error);
+  console.log("status:", response.status, "data:", JSON.stringify(data)); // add this
+
+  if (!response.ok) {
+    throw new Error(data.error || "Login failed");
   }
+
+  return data as SignInResponse;
 };

@@ -4,7 +4,7 @@ import { Order } from "@/lib/app-api-data-types";
 
 const OrdersMain = async () => {
   const data = await foodOrderApi();
-  const ordersData: Order[] = data.orders;
+  const ordersData: Order[] = Array.isArray(data?.orders) ? data.orders : [];
 
   return (
     <div>

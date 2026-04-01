@@ -4,6 +4,13 @@ import { SignInResponse } from "@/lib/services/auth/sign-in";
 export const POST = async (request: Request) => {
   const credentials = await request.json();
 
+  if (!credentials.email || !credentials.password) {
+    return Response.json(
+      { error: "Email and password are required" },
+      { status: 400 },
+    );
+  }
+
   const cookieStore = await cookies();
 
   const response = await fetch("http://localhost:3001/users/login", {
@@ -16,7 +23,14 @@ export const POST = async (request: Request) => {
 
   const data = (await response.json()) as SignInResponse;
 
-  cookieStore.set("token", data.accessToken);
+  if (!response.ok || !data.accessToken) {
+    return Response.json({ error: "Invalid credentials" }, { status: 401 });
+  }
 
-  return new Response(data.accessToken);
+  cookieStore.set("token", data.accessToken, {
+    httpOnly: true,
+    path: "/",
+  });
+
+  return Response.json({ accessToken: data.accessToken });
 };
