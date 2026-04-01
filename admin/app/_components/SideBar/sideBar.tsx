@@ -1,5 +1,5 @@
 "use client";
-import { usePathname } from "next/navigation"; // 1. Import this hook
+import { usePathname } from "next/navigation";
 import { Sidebar } from "@/components/ui/sidebar";
 import { LayoutDashboard, TruckIcon } from "lucide-react";
 import Link from "next/link";
@@ -36,20 +36,23 @@ export const SideBar = () => {
         </div>
       </div>
       <div className="w-41.25 h-26 flex flex-col gap-6 bg-white mt-10">
-        <Link href="/Dishes">
-          <button className={btnColorChange("/Dishes")}>
+        <Link href="/dashboard/Dishes">
+          <button className={btnColorChange("/dashboard/Dishes")}>
             <LayoutDashboard
               strokeWidth={1}
-              className={textIconColor("/Dishes")}
+              className={textIconColor("/dashboard/Dishes")}
             />
-            <p className={textIconColor("/Dishes")}>Food menu</p>
+            <p className={textIconColor("/dashboard/Dishes")}>Food menu</p>
           </button>
         </Link>
 
-        <Link href="/Orders">
-          <button className={btnColorChange("/Orders")}>
-            <TruckIcon strokeWidth={1} className={textIconColor("/Orders")} />
-            <p className={textIconColor("/Orders")}>Orders</p>
+        <Link href="/dashboard/Orders">
+          <button className={btnColorChange("/dashboard/Orders")}>
+            <TruckIcon
+              strokeWidth={1}
+              className={textIconColor("/dashboard/Orders")}
+            />
+            <p className={textIconColor("/dashboard/Orders")}>Orders</p>
           </button>
         </Link>
       </div>

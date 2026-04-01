@@ -9,12 +9,10 @@ import { authorize } from "../middleware/authorize";
 
 const router = Router();
 
-// authenticate, authorize("ADMIN"), add these after you finish login
-
 router.get("/", getCategory);
 router.get("/:id", getCategoryById);
-router.post("/", addCategory);
-router.put("/:id", updateCategory);
-router.delete("/:id", deleteCategory);
+router.post("/", authenticate, authorize("ADMIN"), addCategory);
+router.put("/:id", authenticate, authorize("ADMIN"), updateCategory);
+router.delete("/:id", authenticate, authorize("ADMIN"), deleteCategory);
 
 export default router;

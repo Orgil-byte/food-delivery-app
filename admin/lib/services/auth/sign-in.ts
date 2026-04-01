@@ -8,15 +8,19 @@ export type SignInResponse = {
 };
 
 export const signIn = async (user: User) => {
-  const response = await fetch("/api/user/auth", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json",
-    },
-    body: JSON.stringify(user),
-  });
+  try {
+    const response = await fetch("/api/user/auth", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    });
 
-  const data = (await response.json()) as SignInResponse;
+    const data = (await response.json()) as SignInResponse;
 
-  return data;
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
 };

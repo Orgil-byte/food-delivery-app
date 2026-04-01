@@ -39,10 +39,7 @@ export default function RootLayout({
       <body
         className={`flex h-dvh flex-col ${inter.variable} font-sans antialiased`}
       >
-        <SidebarProvider className="w-full">
-          <SideBar />
-          <main className="w-full">{children}</main>
-        </SidebarProvider>
+        <main className="w-full">{children}</main>
       </body>
     </html>
   );

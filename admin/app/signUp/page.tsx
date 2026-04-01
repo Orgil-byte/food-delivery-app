@@ -51,27 +51,33 @@ const Main = () => {
 
   return (
     <div className="flex h-screen justify-center items-center gap-20">
-      <div className="w-104 h-79 flex flex-col border border-amber-500 gap-10">
+      <div className="w-104 flex flex-col gap-6">
+        <div className="pt-15 flex flex-col gap-1">
+          <p className="font-semibold text-[24px]">Create your account</p>
+          <p className="text-[18px] text-[#71717A]">
+            Sign up to explore your favorite dishes.
+          </p>
+        </div>
         <input
-          className="border border-black"
+          className="border h-9 w-full rounded-md py-2 px-3 border-zinc-200"
           type="email"
-          placeholder="email"
+          placeholder="Enter your email address"
           onChange={onChangeEmail}
         />
         <input
-          className="border border-black"
+          className="border h-9 w-full rounded-md py-2 px-3 border-zinc-200"
           type="password"
           placeholder="password"
           onChange={onChangePassword}
         />
         <input
-          className="border border-black"
+          className="border h-9 w-full rounded-md py-2 px-3 border-zinc-200"
           type="text"
           placeholder="your name"
           onChange={onChangeName}
         />
         <input
-          className="border border-black"
+          className="border h-9 w-full rounded-md py-2 px-3 border-zinc-200"
           type="text"
           placeholder="role"
           onChange={onChangeRole}
@@ -81,7 +87,7 @@ const Main = () => {
         </button>
       </div>
       <img
-        className="w-214 h-226 rounded-2xl object-cover"
+        className="max-w-214 w-full aspect-107/113 rounded-2xl object-cover"
         src="/images/login.jpg"
         alt="img"
       />

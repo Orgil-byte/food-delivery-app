@@ -15,6 +15,14 @@ export type JwtPayload = {
   };
 };
 
+declare global {
+  namespace Express {
+    interface Request {
+      user?: JwtPayload["data"];
+    }
+  }
+}
+
 export interface AuthRequest extends Request {
   user?: JwtPayload["data"];
 }
