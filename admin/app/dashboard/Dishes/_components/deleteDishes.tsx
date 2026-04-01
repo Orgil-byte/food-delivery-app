@@ -2,33 +2,28 @@
 
 import { Foods } from "@/lib/app-api-data-types";
 import { LoaderCircle, Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-type DeleteDishes = {
+type DeleteDishesProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   food: Foods;
 };
 
-export const DeleteDishes = ({ setOpen, food }: DeleteDishes) => {
+export const DeleteDishes = ({ setOpen, food }: DeleteDishesProps) => {
   const [loading, setLoading] = useState(false);
-  // const router = useRouter(); Because it is not working due to dialog component or something else i don't know
 
   const deleteDishes = async () => {
     setLoading(true);
-
     try {
-      await fetch(`http://localhost:3001/foods/${food.id}`, {
+      await fetch(`/api/foods/${food.id}`, {
         method: "DELETE",
-        headers: {
-          "Content-type": "application/json",
-        },
       });
-      setLoading(false);
-      window.location.reload();
       setOpen(false);
+      window.location.reload();
     } catch (error) {
-      console.log(error);
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 

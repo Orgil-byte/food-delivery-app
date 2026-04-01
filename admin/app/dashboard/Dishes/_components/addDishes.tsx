@@ -9,7 +9,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ChangeEventHandler, useState } from "react";
-import { useRouter } from "next/navigation";
 
 type AddDishesProps = {
   category: FoodCateg;
@@ -20,44 +19,26 @@ export const AddDishes = ({ category }: AddDishesProps) => {
   const [foodName, setFoodName] = useState("");
   const [foodPrice, setFoodPrice] = useState("");
   const [foodIngreds, setFoodIngreds] = useState("");
-
   const [loading, setLoading] = useState(false);
-  // const router = useRouter(); Because it is not working due to dialog component or something else i don't know
-
-  const onChangeFoodName: ChangeEventHandler<HTMLInputElement> = (event) => {
-    setFoodName(event.target.value);
-  };
-
-  const onChangeFoodPrice: ChangeEventHandler<HTMLInputElement> = (event) => {
-    setFoodPrice(event.target.value);
-  };
-
-  const onChangeIngreds: ChangeEventHandler<HTMLTextAreaElement> = (event) => {
-    setFoodIngreds(event.target.value);
-  };
 
   const addDishes = async () => {
+    if (!foodName.trim() || !foodPrice) return;
     setLoading(true);
-    const foods = {
-      foodName: foodName,
-      ingredients: foodIngreds,
-      price: Number(foodPrice),
-      foodCategoryId: category.id,
-    };
-
     try {
-      await fetch("http://localhost:3001/foods", {
+      await fetch("/api/foods", {
         method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(foods),
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+          foodName,
+          ingredients: foodIngreds,
+          price: Number(foodPrice),
+          foodCategoryId: category.id,
+        }),
       });
-
-      window.location.reload();
       setIsOpen(false);
+      window.location.reload();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -81,7 +62,7 @@ export const AddDishes = ({ category }: AddDishesProps) => {
       >
         <DialogHeader className="flex flex-row items-center justify-between p-0 m-0 space-y-0">
           <DialogTitle className="text-lg font-bold text-gray-900">
-            Add new Dish to {category.categoryName || "Appetizers"}
+            Add new Dish to {category.categoryName}
           </DialogTitle>
           <button
             onClick={() => setIsOpen(false)}
@@ -100,7 +81,7 @@ export const AddDishes = ({ category }: AddDishesProps) => {
                 type="text"
                 placeholder="Type food name"
                 value={foodName}
-                onChange={onChangeFoodName}
+                onChange={(e) => setFoodName(e.target.value)}
                 className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 placeholder:text-gray-400 transition-all"
               />
             </div>
@@ -110,7 +91,7 @@ export const AddDishes = ({ category }: AddDishesProps) => {
               </label>
               <input
                 value={foodPrice}
-                onChange={onChangeFoodPrice}
+                onChange={(e) => setFoodPrice(e.target.value)}
                 type="number"
                 placeholder="Enter price..."
                 className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 placeholder:text-gray-400 transition-all"
@@ -123,7 +104,7 @@ export const AddDishes = ({ category }: AddDishesProps) => {
             </label>
             <textarea
               value={foodIngreds}
-              onChange={onChangeIngreds}
+              onChange={(e) => setFoodIngreds(e.target.value)}
               placeholder="List ingredients..."
               rows={3}
               className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 placeholder:text-gray-400 resize-none transition-all"

@@ -18,26 +18,19 @@ type DeliveryStateChangeProps = {
 
 export const DeliveryStateChange = ({ orders }: DeliveryStateChangeProps) => {
   const [position, setPosition] = useState(orders.status);
-
   const [isOpen, setIsOpen] = useState(false);
+
   const updateStatus = async (status: string) => {
-    const order = {
-      status: status,
-    };
-
     try {
-      await fetch(`http://localhost:3001/foodOrder/${orders.id}`, {
+      await fetch(`/api/orders/${orders.id}`, {
         method: "PUT",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(order),
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({ status }),
       });
-
-      window.location.reload();
       setIsOpen(false);
+      window.location.reload();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -45,7 +38,13 @@ export const DeliveryStateChange = ({ orders }: DeliveryStateChangeProps) => {
     <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
         <span
-          className={`inline-flex items-center gap-1.5 cursor-pointer text-sm rounded-full border ${orders.status === "PENDING" ? "border-red-500" : orders.status === "DELIVERED" ? "border-[#18BA51]" : "border-[#E4E4E7]"} px-3 py-1 text-sm font-semibold text-zinc-800"`}
+          className={`inline-flex items-center gap-1.5 cursor-pointer text-sm rounded-full border ${
+            orders.status === "PENDING"
+              ? "border-red-500"
+              : orders.status === "DELIVERED"
+                ? "border-[#18BA51]"
+                : "border-[#E4E4E7]"
+          } px-3 py-1 text-sm font-semibold text-zinc-800`}
         >
           {orders.status}
           <span className="flex flex-col leading-none text-zinc-500">

@@ -10,38 +10,29 @@ import {
 
 import { X, Plus, LoaderCircle } from "lucide-react";
 import { ChangeEventHandler, useState } from "react";
-import { useRouter } from "next/navigation";
 
 export const AddCateg = () => {
   const [categoryName, setCategoryName] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // const router = useRouter(); Because it is not working due to dialog component or something else i don't know
-
   const onChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     setCategoryName(event.target.value);
   };
 
   const addCategory = async () => {
+    if (!categoryName.trim()) return;
     setLoading(true);
-    const category = {
-      categoryName: categoryName,
-    };
-
     try {
-      await fetch("http://localhost:3001/foodCateg", {
+      await fetch("/api/categories", {
         method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(category),
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({ categoryName }),
       });
-
-      window.location.reload();
       setIsOpen(false);
+      window.location.reload();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setLoading(false);
     }

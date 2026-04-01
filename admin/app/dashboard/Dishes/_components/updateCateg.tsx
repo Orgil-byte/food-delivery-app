@@ -25,24 +25,18 @@ export const UpdateCateg = ({ category }: UpdateCategProps) => {
   };
 
   const updateCateg = async () => {
+    if (!categoryName.trim()) return;
     setLoading(true);
-    const categories = {
-      categoryName: categoryName,
-    };
-
     try {
-      await fetch(`http://localhost:3001/foodCateg/${category.id}`, {
+      await fetch(`/api/categories/${category.id}`, {
         method: "PUT",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(categories),
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({ categoryName }),
       });
-
-      window.location.reload();
       setIsOpen(false);
+      window.location.reload();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setLoading(false);
     }

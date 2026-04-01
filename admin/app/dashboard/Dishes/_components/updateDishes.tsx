@@ -1,4 +1,4 @@
-import { Edit2, X, Trash2, LoaderCircle, UploadCloud } from "lucide-react";
+import { Edit2, X, LoaderCircle, UploadCloud } from "lucide-react";
 import { useState } from "react";
 import {
   Dialog,
@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/dialog";
 import { FoodCateg, Foods } from "@/lib/app-api-data-types";
 import { ChangeEventHandler } from "react";
-import { useRouter } from "next/navigation";
 import { DeleteDishes } from "./deleteDishes";
 
 type UpdateDishesProps = {
@@ -28,7 +27,6 @@ export const UpdateDishes = ({
   const [foodIngreds, setFoodIngreds] = useState(food.ingredients);
   const [foodPrice, setFoodPrice] = useState(String(food.price));
   const [open, setOpen] = useState(false);
-
   const [loading, setLoading] = useState(false);
 
   // const router = useRouter(); Because it is not working due to dialog component or something else i don't know
@@ -55,26 +53,21 @@ export const UpdateDishes = ({
 
   const upDateDishes = async () => {
     setLoading(true);
-    const foods = {
-      foodName: foodName,
-      ingredients: foodIngreds,
-      price: Number(foodPrice),
-      foodCategoryId: dishCategory,
-    };
-
     try {
-      await fetch(`http://localhost:3001/foods/${food.id}`, {
+      await fetch(`/api/foods/${food.id}`, {
         method: "PUT",
-        headers: {
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify(foods),
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({
+          foodName,
+          ingredients: foodIngreds,
+          price: Number(foodPrice),
+          foodCategoryId: dishCategory,
+        }),
       });
-
-      window.location.reload();
       setOpen(false);
+      window.location.reload();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     } finally {
       setLoading(false);
     }
@@ -83,7 +76,7 @@ export const UpdateDishes = ({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <div className="w-11 h-11 rounded-full  hover:bg-red-100 transition-colors bg-white flex justify-center items-center absolute top-17.5 left-47.5 cursor-pointer shadow-sm">
+        <div className="w-11 h-11 rounded-full hover:bg-red-100 transition-colors bg-white flex justify-center items-center absolute top-17.5 left-47.5 cursor-pointer shadow-sm">
           <Edit2 strokeWidth={2} className="text-red-500" />
         </div>
       </DialogTrigger>
@@ -93,7 +86,7 @@ export const UpdateDishes = ({
       >
         <DialogHeader className="mb-6 flex flex-row items-center justify-between space-y-0">
           <DialogTitle className="text-lg font-semibold text-gray-900">
-            Dishes info
+            Dish info
           </DialogTitle>
         </DialogHeader>
         <div className="grid grid-cols-[110px_1fr] gap-y-4 items-start text-sm">
@@ -110,20 +103,18 @@ export const UpdateDishes = ({
             defaultValue={category.id}
             className="border border-gray-200 rounded-lg px-3 py-2 w-full outline-none focus:border-gray-400 text-gray-900 bg-white"
           >
-            {categories.map((categoryAll) => {
-              return (
-                <option key={categoryAll.id} value={String(categoryAll.id)}>
-                  {categoryAll.categoryName}
-                </option>
-              );
-            })}
+            {categories.map((cat) => (
+              <option key={cat.id} value={String(cat.id)}>
+                {cat.categoryName}
+              </option>
+            ))}
           </select>
           <label className="text-gray-500 mt-2.5">Ingredients</label>
           <textarea
             onChange={onChangeFoodIngreds}
             defaultValue={food.ingredients}
             className="border border-gray-200 rounded-lg px-3 py-2 w-full h-22 resize-none outline-none focus:border-gray-400 text-gray-900 leading-relaxed"
-          ></textarea>
+          />
           <label className="text-gray-500 mt-2.5">Price</label>
           <input
             onChange={onChangeFoodPrice}
@@ -145,11 +136,16 @@ export const UpdateDishes = ({
         </div>
         <div className="flex justify-between items-center mt-8">
           <DeleteDishes setOpen={setOpen} food={food} />
+          {/* Fixed: button was labelled "Add Dish" — now correctly says "Save changes" */}
           <button
             onClick={upDateDishes}
             className="bg-[#18181B] text-white px-5 py-2.5 rounded-lg font-medium hover:bg-black transition-colors text-sm"
           >
-            {loading ? <LoaderCircle className="animate-spin" /> : "Add Dish"}
+            {loading ? (
+              <LoaderCircle className="animate-spin" />
+            ) : (
+              "Save changes"
+            )}
           </button>
         </div>
       </DialogContent>

@@ -12,22 +12,23 @@ export const DeleteCateg = ({ category }: DeleteCategProps) => {
   const [loading, setLoading] = useState(false);
 
   const deleteCateg = async () => {
-    setLoading(true);
     if (category.foods.length > 0) {
-      window.alert("The Category has foods, To delete it remove foods first");
+      window.alert(
+        "This category has dishes. Remove all dishes first before deleting the category.",
+      );
+      return;
     }
 
+    setLoading(true);
     try {
-      await fetch(`http://localhost:3001/foodCateg/${category.id}`, {
+      await fetch(`/api/categories/${category.id}`, {
         method: "DELETE",
-        headers: {
-          "Content-type": "application/json",
-        },
       });
-      setLoading(false);
       window.location.reload();
     } catch (error) {
-      console.log(error);
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 

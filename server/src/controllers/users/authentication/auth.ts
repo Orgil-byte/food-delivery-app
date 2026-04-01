@@ -30,5 +30,6 @@ export const authUsers = async (req: Request, res: Response) => {
     process.env.JWT_SECRET!,
     { expiresIn: "1h" },
   );
-  res.status(200).json({ Valid: accessToken });
+
+  res.status(200).json({ accessToken });
 };

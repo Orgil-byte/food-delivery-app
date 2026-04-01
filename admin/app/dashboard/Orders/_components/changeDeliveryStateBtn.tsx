@@ -24,30 +24,24 @@ export const ChangeDeliveryStateBtn = ({
   const [loading, setLoading] = useState(false);
 
   const openDialog = () => {
-    if (selected.length >= 1) {
-      setIsOpen(true);
-    }
+    if (selected.length >= 1) setIsOpen(true);
   };
 
   const putStatusGroup = async () => {
     if (!status || selected.length === 0) return;
     setLoading(true);
-
     try {
       await Promise.all(
         selected.map((id) =>
-          fetch(`http://localhost:3001/foodOrder/${id}`, {
+          fetch(`/api/orders/${id}`, {
             method: "PUT",
-            headers: {
-              "Content-type": "application/json",
-            },
+            headers: { "Content-type": "application/json" },
             body: JSON.stringify({ status }),
           }),
         ),
       );
-
-      window.location.reload();
       setIsOpen(false);
+      window.location.reload();
     } catch (error) {
       console.error(error);
     } finally {
@@ -118,12 +112,15 @@ export const ChangeDeliveryStateBtn = ({
             </Label>
           </div>
         </RadioGroup>
-
         <Button
           onClick={putStatusGroup}
           className="w-full bg-zinc-900 hover:bg-zinc-800 cursor-pointer text-white rounded-full h-10 font-medium"
         >
-          {loading ? <LoaderCircle className="animate-spin" /> : "Add Dish"}
+          {loading ? (
+            <LoaderCircle className="animate-spin" />
+          ) : (
+            "Apply changes"
+          )}
         </Button>
       </DialogContent>
     </Dialog>

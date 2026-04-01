@@ -12,9 +12,9 @@ const router = Router();
 
 router.post("/", addUsers);
 router.get("/", authenticate, authorize("ADMIN"), getUsers);
+router.get("/me", authenticate, me);
 router.get("/:id", authenticate, getUsersById);
 router.put("/:id", authenticate, updateUsers);
 router.delete("/:id", authenticate, authorize("ADMIN"), deleteUsers);
-router.get("/", authenticate, me);
 
 export default router;
