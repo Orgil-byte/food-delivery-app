@@ -1,16 +1,24 @@
 import { cookies } from "next/headers";
 
-export async function GET() {
+async function getToken() {
   const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
+  return cookieStore.get("token")?.value;
+}
 
-  // Fixed: was /categories — correct endpoint is /foodCateg
-  const response = await fetch("http://localhost:3001/foodCateg", {
-    method: "GET",
+export async function PUT(
+  request: Request,
+  { params }: { params: { id: string } },
+) {
+  const token = await getToken();
+  const body = await request.json();
+
+  const response = await fetch(`http://localhost:3001/foodCateg/${params.id}`, {
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
+    body: JSON.stringify(body),
   });
 
   const data = await response.json();
@@ -20,18 +28,18 @@ export async function GET() {
   });
 }
 
-export async function POST(request: Request) {
-  const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
-  const body = await request.json();
+export async function DELETE(
+  _request: Request,
+  { params }: { params: { id: string } },
+) {
+  const token = await getToken();
 
-  const response = await fetch("http://localhost:3001/foodCateg", {
-    method: "POST",
+  const response = await fetch(`http://localhost:3001/foodCateg/${params.id}`, {
+    method: "DELETE",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     },
-    body: JSON.stringify(body),
   });
 
   const data = await response.json();
