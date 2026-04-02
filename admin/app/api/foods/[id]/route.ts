@@ -9,17 +9,22 @@ export async function PUT(
   request: Request,
   { params }: { params: { id: string } },
 ) {
+  const resolvedParams = await params;
+
   const token = await getToken();
   const body = await request.json();
 
-  const response = await fetch(`http://localhost:3001/foods/${params.id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+  const response = await fetch(
+    `http://localhost:3001/foods/${resolvedParams.id}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
     },
-    body: JSON.stringify(body),
-  });
+  );
 
   const data = await response.json();
   return new Response(JSON.stringify(data), {
@@ -32,15 +37,20 @@ export async function DELETE(
   _request: Request,
   { params }: { params: { id: string } },
 ) {
+  const resolvedParams = await params;
+
   const token = await getToken();
 
-  const response = await fetch(`http://localhost:3001/foods/${params.id}`, {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+  const response = await fetch(
+    `http://localhost:3001/foods/${resolvedParams.id}`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
     },
-  });
+  );
 
   const data = await response.json();
   return new Response(JSON.stringify(data), {

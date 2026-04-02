@@ -11,22 +11,26 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
+import { getUser } from "./_components/Header";
+import Link from "next/link";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
 });
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = await getUser();
+
   return (
     <div
       className={`flex flex-col h-dvh ${inter.variable} font-sans antialiased`}
     >
-      <div className="flex justify-end w-full pr-25 pt-6 bg-neutral-100 cursor-pointer">
+      <div className="flex justify-end w-full pr-10 pt-6 bg-neutral-100 cursor-pointer">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="icon" className="rounded-full">
@@ -36,15 +40,27 @@ export default function DashboardLayout({
               </Avatar>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="opacity-100 w-32 bg-white">
+          <DropdownMenuContent
+            side="bottom"
+            align="start"
+            sideOffset={4}
+            className="opacity-100 w-fit p-2 bg-white"
+          >
             <DropdownMenuGroup>
-              <DropdownMenuItem>Profile</DropdownMenuItem>
-              <DropdownMenuItem>Billing</DropdownMenuItem>
-              <DropdownMenuItem>Settings</DropdownMenuItem>
+              <DropdownMenuItem>{user.name}</DropdownMenuItem>
+              <DropdownMenuItem>{user.email}</DropdownMenuItem>
+              <DropdownMenuItem>{user.phoneNumber}</DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem variant="destructive">Log out</DropdownMenuItem>
+              <Link href={"/"}>
+                <DropdownMenuItem
+                  className="bg-red-100 hover:bg-red-300 transition-colors cursor-pointer text-center"
+                  variant="destructive"
+                >
+                  Log out
+                </DropdownMenuItem>
+              </Link>
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>

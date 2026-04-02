@@ -11,15 +11,19 @@ export async function PUT(
 ) {
   const token = await getToken();
   const body = await request.json();
+  const resolvedParams = await params;
 
-  const response = await fetch(`http://localhost:3001/foodOrder/${params.id}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
+  const response = await fetch(
+    `http://localhost:3001/foodOrder/${resolvedParams.id}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
     },
-    body: JSON.stringify(body),
-  });
+  );
 
   const data = await response.json();
   return new Response(JSON.stringify(data), {

@@ -5,7 +5,7 @@ export const updateCategory = async (req: Request, res: Response) => {
   const id = Number(req.params["id"]);
   const { categoryName } = req.body;
   const category = await prisma.foodCategory.update({
-    where: { id },
+    where: { id: id },
     data: { categoryName },
   });
   if (!category) {

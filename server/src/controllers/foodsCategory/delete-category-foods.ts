@@ -3,7 +3,7 @@ import prisma from "../../lib/prisma";
 
 export const deleteCategory = async (req: Request, res: Response) => {
   const id = Number(req.params["id"]);
-  const deleted = await prisma.foodCategory.delete({ where: { id } });
+  const deleted = await prisma.foodCategory.delete({ where: { id: id } });
   if (!deleted) {
     res.status(404).json({ error: "Food not found" });
     return;

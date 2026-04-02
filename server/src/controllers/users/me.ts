@@ -2,6 +2,10 @@ import { Request, Response } from "express";
 import prisma from "../../lib/prisma";
 
 export const me = async (req: Request, res: Response) => {
+  if (!req.user?.id) {
+    return res.status(400).json({ message: "user id or email missing." });
+  }
+
   const user = await prisma.user.findUnique({
     where: {
       id: req.user?.id,
@@ -15,5 +19,5 @@ export const me = async (req: Request, res: Response) => {
 
   if (!user) return res.status(400).json({ message: "user not found." });
 
-  res.status(201).json(user);
+  res.status(200).json(user);
 };
