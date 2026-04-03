@@ -61,24 +61,29 @@ const LoginPage = () => {
           onChange={onChangeEmailLog}
           className="border h-9 w-full rounded-md py-2 px-3 border-zinc-200"
           type="email"
-          placeholder="email"
+          placeholder="Enter your email address"
           value={email}
         />
         <input
           onChange={onChangePasswordLog}
           className="border h-9 w-full rounded-md py-2 px-3 border-zinc-200"
           type="password"
-          placeholder="password"
+          placeholder="Password"
           value={password}
         />
         <button
           onClick={logUser}
           disabled={loading}
-          className="bg-red-400 w-fit px-4 py-1 rounded text-white disabled:opacity-50"
+          className="bg-zinc-900 w-full text-center cursor-pointer px-4 py-1 rounded text-white disabled:opacity-50"
         >
           {loading ? "Signing in..." : "Sign in"}
         </button>
-        <Link href={"/signUp"}>Sign up?</Link>
+        <div className="flex gap-3 items-center w-full justify-center">
+          <p className="text-[#71717A] text-[17px]">Don’t have an account?</p>
+          <Link className="text-[#2563EB]" href={"/signUp"}>
+            Sign up
+          </Link>
+        </div>
       </div>
       <img
         className="w-214 h-226 rounded-2xl object-cover"

@@ -1,6 +1,7 @@
 "use client";
 import { ChangeEventHandler, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Main = () => {
   const [email, setEmail] = useState("");
@@ -60,6 +61,12 @@ const Main = () => {
         </div>
         <input
           className="border h-9 w-full rounded-md py-2 px-3 border-zinc-200"
+          type="text"
+          placeholder="Enter your name"
+          onChange={onChangeName}
+        />
+        <input
+          className="border h-9 w-full rounded-md py-2 px-3 border-zinc-200"
           type="email"
           placeholder="Enter your email address"
           onChange={onChangeEmail}
@@ -67,14 +74,8 @@ const Main = () => {
         <input
           className="border h-9 w-full rounded-md py-2 px-3 border-zinc-200"
           type="password"
-          placeholder="password"
+          placeholder="Password"
           onChange={onChangePassword}
-        />
-        <input
-          className="border h-9 w-full rounded-md py-2 px-3 border-zinc-200"
-          type="text"
-          placeholder="your name"
-          onChange={onChangeName}
         />
         <input
           className="border h-9 w-full rounded-md py-2 px-3 border-zinc-200"
@@ -82,9 +83,18 @@ const Main = () => {
           placeholder="role"
           onChange={onChangeRole}
         />
-        <button onClick={saveUser} className="bg-red-400 w-fit">
-          Sign up
+        <button
+          onClick={saveUser}
+          className="bg-zinc-900 w-full text-center cursor-pointer px-4 py-1 rounded text-white disabled:opacity-50"
+        >
+          Create account
         </button>
+        <div className="flex gap-3 items-center w-full justify-center">
+          <p className="text-[#71717A] text-[17px]">Already have an account?</p>
+          <Link className="text-[#2563EB]" href={"/"}>
+            Log in
+          </Link>
+        </div>
       </div>
       <img
         className="max-w-214 w-full aspect-107/113 rounded-2xl object-cover"
