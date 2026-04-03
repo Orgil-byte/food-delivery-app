@@ -8,7 +8,7 @@ async function getToken() {
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const token = await getToken();
   const body = await request.json();

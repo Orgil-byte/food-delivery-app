@@ -25,7 +25,7 @@ export async function POST(request: Request) {
   const token = cookieStore.get("token")?.value;
   const body = await request.json();
 
-  const response = await fetch("http://localhost:3001/foodCateg", {
+  const response = await fetch(`${backEndUrl}/foodCateg`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -1,5 +1,7 @@
+import { backEndUrl } from "@/hooks/env-url";
+
 export const foodApi = async () => {
-  const foodData = await fetch("http://localhost:3001/foods");
+  const foodData = await fetch(`${backEndUrl}/foods`);
   const theFood = await foodData.json();
 
   return theFood;
