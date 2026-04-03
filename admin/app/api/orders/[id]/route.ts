@@ -1,3 +1,4 @@
+import { backEndUrl } from "@/hooks/env-url";
 import { cookies } from "next/headers";
 
 async function getToken() {
@@ -13,17 +14,14 @@ export async function PUT(
   const body = await request.json();
   const resolvedParams = await params;
 
-  const response = await fetch(
-    `http://localhost:3001/foodOrder/${resolvedParams.id}`,
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(body),
+  const response = await fetch(`${backEndUrl}/foodOrder/${resolvedParams.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
-  );
+    body: JSON.stringify(body),
+  });
 
   const data = await response.json();
   return new Response(JSON.stringify(data), {

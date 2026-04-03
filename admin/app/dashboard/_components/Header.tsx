@@ -1,3 +1,4 @@
+import { backEndUrl } from "@/hooks/env-url";
 import { cookies } from "next/headers";
 
 type User = {
@@ -10,7 +11,7 @@ export const getUser = async () => {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
 
-  const response = await fetch("http://localhost:3001/users/me", {
+  const response = await fetch(`${backEndUrl}/users/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

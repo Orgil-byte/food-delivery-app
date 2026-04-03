@@ -2,6 +2,7 @@
 import { ChangeEventHandler, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { backEndUrl } from "@/hooks/env-url";
 
 const Main = () => {
   const [email, setEmail] = useState("");
@@ -36,7 +37,7 @@ const Main = () => {
     };
 
     try {
-      await fetch("http://localhost:3001/users", {
+      await fetch(`${backEndUrl}/users`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

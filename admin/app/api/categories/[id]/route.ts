@@ -1,3 +1,4 @@
+import { backEndUrl } from "@/hooks/env-url";
 import { cookies } from "next/headers";
 
 async function getToken() {
@@ -14,17 +15,14 @@ export async function PUT(
   const token = await getToken();
   const body = await request.json();
 
-  const response = await fetch(
-    `http://localhost:3001/foodCateg/${resolvedParams.id}`,
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(body),
+  const response = await fetch(`${backEndUrl}/foodCateg/${resolvedParams.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
-  );
+    body: JSON.stringify(body),
+  });
 
   const data = await response.json();
   return new Response(JSON.stringify(data), {
@@ -41,16 +39,13 @@ export async function DELETE(
 
   const token = await getToken();
 
-  const response = await fetch(
-    `http://localhost:3001/foodCateg/${resolvedParams.id}`,
-    {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+  const response = await fetch(`${backEndUrl}/foodCateg/${resolvedParams.id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
     },
-  );
+  });
 
   const data = await response.json();
   return new Response(JSON.stringify(data), {

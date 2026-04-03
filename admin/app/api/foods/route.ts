@@ -1,3 +1,4 @@
+import { backEndUrl } from "@/hooks/env-url";
 import { cookies } from "next/headers";
 
 async function getToken() {
@@ -9,7 +10,7 @@ export async function POST(request: Request) {
   const token = await getToken();
   const body = await request.json();
 
-  const response = await fetch("http://localhost:3001/foods", {
+  const response = await fetch(`${backEndUrl}/foods`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

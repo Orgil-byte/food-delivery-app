@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { SignInResponse } from "@/lib/services/auth/sign-in";
+import { backEndUrl } from "@/hooks/env-url";
 
 export const POST = async (request: Request) => {
   const credentials = await request.json();
@@ -13,7 +14,7 @@ export const POST = async (request: Request) => {
 
   const cookieStore = await cookies();
 
-  const response = await fetch("http://localhost:3001/users/login", {
+  const response = await fetch(`${backEndUrl}/users/login`, {
     method: "POST",
     headers: {
       "Content-type": "application/json",

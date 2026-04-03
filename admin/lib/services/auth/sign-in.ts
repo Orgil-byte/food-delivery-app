@@ -19,8 +19,6 @@ export const signIn = async (user: User): Promise<SignInResponse> => {
   const text = await response.text();
   const data = text ? JSON.parse(text) : {};
 
-  console.log("status:", response.status, "data:", JSON.stringify(data)); // add this
-
   if (!response.ok) {
     throw new Error(data.error || "Login failed");
   }

@@ -1,11 +1,11 @@
+import { backEndUrl } from "@/hooks/env-url";
 import { cookies } from "next/headers";
 
 export async function GET() {
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
 
-  // Fixed: was /categories — correct endpoint is /foodCateg
-  const response = await fetch("http://localhost:3001/foodCateg", {
+  const response = await fetch(`${backEndUrl}/foodCateg`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
