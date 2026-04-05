@@ -3,7 +3,7 @@ export type CategoryDataType = {
   categoryName: string;
   createdAt: Date;
   updatedAt: Date;
-  foods: [];
+  foods: FoodsDataType[];
 };
 
 export type FoodsDataType = {
