@@ -64,6 +64,7 @@ export const UpdateDishes = ({
           ingredients: foodIngreds,
           price: Number(foodPrice),
           foodCategoryId: dishCategory,
+          image,
         }),
       });
       setOpen(false);
@@ -125,11 +126,7 @@ export const UpdateDishes = ({
             className="border border-gray-200 rounded-lg px-3 py-2 w-full outline-none focus:border-gray-400 text-gray-900"
           />
           <label className="text-gray-500 mt-2.5">Image</label>
-          <CloudUploadUpdate
-            setImage={setImage}
-            image={image}
-            defaultImage={image}
-          />
+          <CloudUploadUpdate setImage={setImage} image={image} />
         </div>
         <div className="flex justify-between items-center mt-8">
           <DeleteDishes setOpen={setOpen} food={food} />
