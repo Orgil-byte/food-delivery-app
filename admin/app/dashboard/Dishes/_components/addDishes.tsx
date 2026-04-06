@@ -1,6 +1,6 @@
 "use client";
 import { FoodCateg } from "@/lib/app-api-data-types";
-import { LoaderCircle, Plus, UploadCloud, X } from "lucide-react";
+import { LoaderCircle, Plus, X } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -9,6 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { ChangeEventHandler, useState } from "react";
+import { CloudUpload } from "./cloudUpload";
 
 type AddDishesProps = {
   category: FoodCateg;
@@ -20,6 +21,7 @@ export const AddDishes = ({ category }: AddDishesProps) => {
   const [foodPrice, setFoodPrice] = useState("");
   const [foodIngreds, setFoodIngreds] = useState("");
   const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState("");
 
   const addDishes = async () => {
     if (!foodName.trim() || !foodPrice) return;
@@ -33,6 +35,7 @@ export const AddDishes = ({ category }: AddDishesProps) => {
           ingredients: foodIngreds,
           price: Number(foodPrice),
           foodCategoryId: category.id,
+          image: image === "" ? null : image,
         }),
       });
       setIsOpen(false);
@@ -110,19 +113,7 @@ export const AddDishes = ({ category }: AddDishesProps) => {
               className="w-full px-3 py-2.5 text-sm border border-gray-200 rounded-lg outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 placeholder:text-gray-400 resize-none transition-all"
             />
           </div>
-          <div className="flex flex-col gap-1.5 relative">
-            <label className="text-[13px] font-medium text-gray-700">
-              Food image
-            </label>
-            <input
-              type="file"
-              className="w-full h-50 border border-dashed border-blue-200 bg-[#F8FAFC] rounded-xl flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-blue-50/50 transition-colors"
-            />
-            <UploadCloud className="h-5 w-5 text-gray-500 absolute bottom-[40%] left-[48%]" />
-            <span className="text-[13px] text-gray-500 font-medium absolute bottom-[30%] left-[25%]">
-              Choose a file or drag & drop it here
-            </span>
-          </div>
+          <CloudUpload image={image} setImage={setImage} />
         </div>
         <div className="flex justify-end pt-1">
           <button

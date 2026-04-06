@@ -15,6 +15,11 @@ export const FoodLists = ({ categoryFoods }: FoodListsProps) => {
             className="bg-white rounded-[20px] p-4 overflow-hidden flex flex-col gap-5"
           >
             <div className="aspect-video w-full bg-neutral-500 relative rounded-xl">
+              <img
+                src={`${item.image}`}
+                alt="food img"
+                className="w-full h-full rounded-xl object-cover"
+              />
               <div className="absolute bottom-6 transition-transform duration-150 hover:scale-110 right-6 w-11 h-11 rounded-full bg-white flex justify-center items-center cursor-pointer">
                 <Plus strokeWidth={2} size={16} className="text-red-500" />
               </div>

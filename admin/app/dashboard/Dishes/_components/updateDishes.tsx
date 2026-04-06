@@ -10,6 +10,7 @@ import {
 import { FoodCateg, Foods } from "@/lib/app-api-data-types";
 import { ChangeEventHandler } from "react";
 import { DeleteDishes } from "./deleteDishes";
+import { CloudUploadUpdate } from "./cloudUpdateUpload";
 
 type UpdateDishesProps = {
   food: Foods;
@@ -26,6 +27,7 @@ export const UpdateDishes = ({
   const [dishCategory, setDishCategory] = useState(category.id);
   const [foodIngreds, setFoodIngreds] = useState(food.ingredients);
   const [foodPrice, setFoodPrice] = useState(String(food.price));
+  const [image, setImage] = useState(food.image);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -123,20 +125,15 @@ export const UpdateDishes = ({
             className="border border-gray-200 rounded-lg px-3 py-2 w-full outline-none focus:border-gray-400 text-gray-900"
           />
           <label className="text-gray-500 mt-2.5">Image</label>
-          <div className="flex flex-col gap-1.5 relative">
-            <input
-              type="file"
-              className="w-full h-50 border border-dashed border-blue-200 bg-[#F8FAFC] rounded-xl flex flex-col items-center justify-center gap-2 cursor-pointer hover:bg-blue-50/50 transition-colors"
-            />
-            <UploadCloud className="h-5 w-5 text-gray-500 absolute bottom-[40%] left-[48%]" />
-            <span className="text-[13px] text-gray-500 font-medium absolute bottom-[30%] left-[25%]">
-              Choose a file or drag & drop it here
-            </span>
-          </div>
+          <CloudUploadUpdate
+            setImage={setImage}
+            image={image}
+            defaultImage={image}
+          />
         </div>
         <div className="flex justify-between items-center mt-8">
           <DeleteDishes setOpen={setOpen} food={food} />
-          {/* Fixed: button was labelled "Add Dish" — now correctly says "Save changes" */}
+
           <button
             onClick={upDateDishes}
             className="bg-[#18181B] text-white px-5 py-2.5 rounded-lg font-medium hover:bg-black transition-colors text-sm"
