@@ -11,7 +11,7 @@ const app = express();
 app.use(
   cors({
     origin: [
-      "https://admin-food-real-one.vercel.app/",
+      "https://admin-food-real-one.vercel.app",
       "http://localhost:3000/",
     ],
   }),

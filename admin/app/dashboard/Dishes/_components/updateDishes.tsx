@@ -1,3 +1,5 @@
+"use client";
+
 import { Edit2, X, LoaderCircle, UploadCloud } from "lucide-react";
 import { useState } from "react";
 import {
