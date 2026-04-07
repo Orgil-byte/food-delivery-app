@@ -1,5 +1,6 @@
 import { FoodsDataType } from "@/lib/api-data-types";
 import { Plus } from "lucide-react";
+import { FoodOrder } from "./foodOrder";
 
 type FoodListsProps = {
   categoryFoods: FoodsDataType[];
@@ -20,9 +21,7 @@ export const FoodLists = ({ categoryFoods }: FoodListsProps) => {
                 alt="food img"
                 className="w-full h-full rounded-xl object-cover"
               />
-              <div className="absolute bottom-6 transition-transform duration-150 hover:scale-110 right-6 w-11 h-11 rounded-full bg-white flex justify-center items-center cursor-pointer">
-                <Plus strokeWidth={2} size={16} className="text-red-500" />
-              </div>
+              <FoodOrder />
             </div>
             <div className="flex flex-col gap-1.5 flex-1">
               <div className="flex items-start justify-between gap-2">
